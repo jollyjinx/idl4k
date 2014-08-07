@@ -1,0 +1,1047 @@
+/*
+This file was automatically generated on Fri 30 Apr 10 at 15:18:41 by user mcgoogan, host hoiho.bri.st.com using romgen R1.4.0 with the ST TargetPack mb796stx5206
+
+TargetPack files used:
+/opt/STM/STLinux-2.3/host/stmc/targetpack/boards/mb796stx5206/mb796stx5206.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/boards/mb796stx5206/mb796stx5206.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/boards/mb796stx5206/mb796stx5206_design.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st231.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st231.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_300.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_300.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_300_design.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_ccn_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_pmb_addr_array_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_pmb_data_array_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_pmb_regs.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/debug/tapmux.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/peripherals/st40_emi_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/peripherals/st40_lmigp_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/peripherals/st40_pio.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/peripherals/tapmux.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx5206/stx5206.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx5206/stx5206.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx5206/stx5206_audio_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx5206/stx5206_clockgena_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx5206/stx5206_clockgenb_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx5206/stx5206_design.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx5206/stx5206_sysconf_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/tap/__init__.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/tap/jtag.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/utilities/utilities.py
+*/
+
+
+/*
+stx5206_clockgena_regs.CKGA_CLKOPSRC_SWITCH_CFG
+*/
+POKE32(0xfe213014, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_CLKOPSRC_SWITCH_CFG2
+*/
+POKE32(0xfe213024, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL0_ENABLE_FB
+*/
+WHILE_NE32(0xfe21301c, 0xffffffff, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_ENABLE_FB
+*/
+WHILE_NE32(0xfe213020, 0xffffffff, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL0_CFG
+*/
+OR32(0xfe213000, 0x00100000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_POWER_CFG
+*/
+OR32(0xfe213010, 0x00000001)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL0_CFG
+*/
+UPDATE32(0xfe213000, 0xfff80000, 0x00000f01)
+
+
+/*
+stx5206_clockgena_regs.CKGA_POWER_CFG
+*/
+UPDATE32(0xfe213010, 0xfffffffe, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL0_CFG
+*/
+WHILE_NE32(0xfe213000, 0x80000000, 0x80000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL0_CFG
+*/
+UPDATE32(0xfe213000, 0xffefffff, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_CFG
+*/
+OR32(0xfe213004, 0x00100000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_POWER_CFG
+*/
+OR32(0xfe213010, 0x00000002)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_CFG
+*/
+UPDATE32(0xfe213004, 0xfff80000, 0x00002803)
+
+
+/*
+stx5206_clockgena_regs.CKGA_POWER_CFG
+*/
+UPDATE32(0xfe213010, 0xfffffffd, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_CFG
+*/
+WHILE_NE32(0xfe213004, 0x80000000, 0x80000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_CFG
+*/
+UPDATE32(0xfe213004, 0xffefffff, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV0_CFG
+*/
+POKE32(0xfe213b00, 0x00000001)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV0_CFG
+*/
+WHILE_NE32(0xfe213b00, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV1_CFG
+*/
+POKE32(0xfe213b04, 0x00000001)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV1_CFG
+*/
+WHILE_NE32(0xfe213b04, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV2_CFG
+*/
+POKE32(0xfe213b08, 0x00000001)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV2_CFG
+*/
+WHILE_NE32(0xfe213b08, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV3_CFG
+*/
+POKE32(0xfe213b0c, 0x00000004)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV3_CFG
+*/
+WHILE_NE32(0xfe213b0c, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL0LS_DIV4_CFG
+*/
+POKE32(0xfe213a10, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL0LS_DIV4_CFG
+*/
+WHILE_NE32(0xfe213a10, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV5_CFG
+*/
+POKE32(0xfe213b14, 0x00000007)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV5_CFG
+*/
+WHILE_NE32(0xfe213b14, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL0LS_DIV6_CFG
+*/
+POKE32(0xfe213a18, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL0LS_DIV6_CFG
+*/
+WHILE_NE32(0xfe213a18, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL0LS_DIV7_CFG
+*/
+POKE32(0xfe213a1c, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL0LS_DIV7_CFG
+*/
+WHILE_NE32(0xfe213a1c, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV8_CFG
+*/
+POKE32(0xfe213b20, 0x00000003)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV8_CFG
+*/
+WHILE_NE32(0xfe213b20, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV9_CFG
+*/
+POKE32(0xfe213b24, 0x00000003)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV9_CFG
+*/
+WHILE_NE32(0xfe213b24, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV10_CFG
+*/
+POKE32(0xfe213b28, 0x00000003)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV10_CFG
+*/
+WHILE_NE32(0xfe213b28, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV11_CFG
+*/
+POKE32(0xfe213b2c, 0x00000003)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV11_CFG
+*/
+WHILE_NE32(0xfe213b2c, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV12_CFG
+*/
+POKE32(0xfe213b30, 0x00000002)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV12_CFG
+*/
+WHILE_NE32(0xfe213b30, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL0LS_DIV13_CFG
+*/
+POKE32(0xfe213a34, 0x00000008)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL0LS_DIV13_CFG
+*/
+WHILE_NE32(0xfe213a34, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV14_CFG
+*/
+POKE32(0xfe213b38, 0x0000000b)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV14_CFG
+*/
+WHILE_NE32(0xfe213b38, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV15_CFG
+*/
+POKE32(0xfe213b3c, 0x00000007)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV15_CFG
+*/
+WHILE_NE32(0xfe213b3c, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV16_CFG
+*/
+POKE32(0xfe213b40, 0x00000003)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV16_CFG
+*/
+WHILE_NE32(0xfe213b40, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV17_CFG
+*/
+POKE32(0xfe213b44, 0x00000003)
+
+
+/*
+stx5206_clockgena_regs.CKGA_PLL1_DIV17_CFG
+*/
+WHILE_NE32(0xfe213b44, 0x80000000, 0x00000000)
+
+
+/*
+stx5206_clockgena_regs.CKGA_CLKOPSRC_SWITCH_CFG
+*/
+POKE32(0xfe213014, 0xa6aa59aa)
+
+
+/*
+stx5206_clockgena_regs.CKGA_CLKOPSRC_SWITCH_CFG2
+*/
+POKE32(0xfe213024, 0x0000000a)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG40
+*/
+UPDATE32(0xfe0011a0, 0xfffffffc, 0x00000000)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG11
+*/
+OR32(0xfe00112c, 0x00001000)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG11
+*/
+UPDATE32(0xfe00112c, 0xfffff001, 0x000006a0)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG11
+*/
+UPDATE32(0xfe00112c, 0xffffefff, 0x00000000)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_STA3
+*/
+WHILE_NE32(0xfe001014, 0x00000001, 0x00000000)
+
+
+/*
+stx5206_clockgenb_regs.CLOCKGENB_LOCK
+*/
+POKE32(0xfe000010, 0x0000c0de)
+
+
+/*
+stx5206_clockgenb_regs.CLOCKGENB_FS0_CTRL .NPDA [offset 4, size 1]
+*/
+UPDATE32(0xfe000014, 0xffffffef, 0x00000000)
+
+
+/*
+stx5206_clockgenb_regs.CLOCKGENB_FS0_CTRL .NRST [offset 3, size 1]
+*/
+UPDATE32(0xfe000014, 0xfffffff7, 0x00000000)
+
+
+/*
+stx5206_clockgenb_regs.CLOCKGENB_FS0_CTRL .NRST [offset 3, size 1]
+*/
+UPDATE32(0xfe000014, 0xfffffff7, 0x00000008)
+
+
+/*
+stx5206_clockgenb_regs.CLOCKGENB_FS0_CTRL .NPDA [offset 4, size 1]
+*/
+UPDATE32(0xfe000014, 0xffffffef, 0x00000010)
+
+
+/*
+stx5206_clockgenb_regs.CLOCKGENB_FS1_CTRL .NPDA [offset 4, size 1]
+*/
+UPDATE32(0xfe00005c, 0xffffffef, 0x00000000)
+
+
+/*
+stx5206_clockgenb_regs.CLOCKGENB_FS1_CTRL .NRST [offset 3, size 1]
+*/
+UPDATE32(0xfe00005c, 0xfffffff7, 0x00000000)
+
+
+/*
+stx5206_clockgenb_regs.CLOCKGENB_FS1_CTRL .NRST [offset 3, size 1]
+*/
+UPDATE32(0xfe00005c, 0xfffffff7, 0x00000008)
+
+
+/*
+stx5206_clockgenb_regs.CLOCKGENB_FS1_CTRL .NPDA [offset 4, size 1]
+*/
+UPDATE32(0xfe00005c, 0xffffffef, 0x00000010)
+
+
+/*
+stx5206_clockgenb_regs.CLOCKGENB_CRISTAL_SEL
+*/
+POKE32(0xfe0000b8, 0x00000000)
+
+
+/*
+stx5206_clockgenb_regs.CLOCKGENB_LOCK
+*/
+POKE32(0xfe000010, 0x00000000)
+
+
+/*
+stx5206_audio_regs.AUDCFG_FSYNA_CFG
+*/
+UPDATE32(0xfe210000, 0xfe7fffff, 0x00000000)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG40
+*/
+UPDATE32(0xfe0011a0, 0xfffffff3, 0x00000000)
+
+
+/*
+st40_emi_regs.EMI_BANK_ENABLE
+*/
+POKE32(0xfe700860, 0x00000005)
+
+
+/*
+st40_emi_regs.EMI_BANK0_BASEADDRESS
+*/
+POKE32(0xfe700800, 0x00000000)
+
+
+/*
+st40_emi_regs.EMI_BANK1_BASEADDRESS
+*/
+POKE32(0xfe700810, 0x00000010)
+
+
+/*
+st40_emi_regs.EMI_BANK2_BASEADDRESS
+*/
+POKE32(0xfe700820, 0x00000012)
+
+
+/*
+st40_emi_regs.EMI_BANK3_BASEADDRESS
+*/
+POKE32(0xfe700830, 0x0000001c)
+
+
+/*
+st40_emi_regs.EMI_BANK4_BASEADDRESS
+*/
+POKE32(0xfe700840, 0x00000020)
+
+
+/*
+st40_emi_regs.EMI_BANK0_EMICONFIGDATA0
+*/
+POKE32(0xfe700100, 0x001016d1)
+
+
+/*
+st40_emi_regs.EMI_BANK0_EMICONFIGDATA1
+*/
+POKE32(0xfe700108, 0x9d200000)
+
+
+/*
+st40_emi_regs.EMI_BANK0_EMICONFIGDATA2
+*/
+POKE32(0xfe700110, 0x9d220000)
+
+
+/*
+st40_emi_regs.EMI_BANK0_EMICONFIGDATA3
+*/
+POKE32(0xfe700118, 0x00000000)
+
+
+/*
+st40_emi_regs.EMI_BANK1_EMICONFIGDATA0
+*/
+POKE32(0xfe700140, 0x001016d1)
+
+
+/*
+st40_emi_regs.EMI_BANK1_EMICONFIGDATA1
+*/
+POKE32(0xfe700148, 0x9d200000)
+
+
+/*
+st40_emi_regs.EMI_BANK1_EMICONFIGDATA2
+*/
+POKE32(0xfe700150, 0x9d220000)
+
+
+/*
+st40_emi_regs.EMI_BANK1_EMICONFIGDATA3
+*/
+POKE32(0xfe700158, 0x00000000)
+
+
+/*
+st40_emi_regs.EMI_BANK2_EMICONFIGDATA0
+*/
+POKE32(0xfe700180, 0x002016d1)
+
+
+/*
+st40_emi_regs.EMI_BANK2_EMICONFIGDATA1
+*/
+POKE32(0xfe700188, 0x9d222200)
+
+
+/*
+st40_emi_regs.EMI_BANK2_EMICONFIGDATA2
+*/
+POKE32(0xfe700190, 0x9d220044)
+
+
+/*
+st40_emi_regs.EMI_BANK2_EMICONFIGDATA3
+*/
+POKE32(0xfe700198, 0x00000000)
+
+
+/*
+st40_emi_regs.EMI_BANK3_EMICONFIGDATA0
+*/
+POKE32(0xfe7001c0, 0x00c447f9)
+
+
+/*
+st40_emi_regs.EMI_BANK3_EMICONFIGDATA1
+*/
+POKE32(0xfe7001c8, 0xff86a8a8)
+
+
+/*
+st40_emi_regs.EMI_BANK3_EMICONFIGDATA2
+*/
+POKE32(0xfe7001d0, 0xff86a8a8)
+
+
+/*
+st40_emi_regs.EMI_BANK3_EMICONFIGDATA3
+*/
+POKE32(0xfe7001d8, 0x0000000a)
+
+
+/*
+st40_emi_regs.EMI_GENCFG
+*/
+POKE32(0xfe700028, 0x00000010)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG04
+*/
+UPDATE32(0xfe001110, 0xfffffffb, 0x00000000)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG11
+*/
+UPDATE32(0xfe00112c, 0x00000ffe, 0x08010001)
+DELAY(200)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG04
+*/
+OR32(0xfe001110, 0x00000004)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG12
+*/
+POKE32(0xfe001130, 0xa000787f)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG38
+*/
+POKE32(0xfe001198, 0x000f000c)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG13
+*/
+POKE32(0xfe001134, 0x0042000a)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG14
+*/
+POKE32(0xfe001138, 0x00000000)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG55
+*/
+POKE32(0xfe0011dc, 0x0800239e)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG42
+*/
+POKE32(0xfe0011a8, 0x0000fa8e)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG43
+*/
+POKE32(0xfe0011ac, 0x00000000)
+
+
+/*
+stx5206_sysconf_regs.SYSCONF_CFG51
+*/
+POKE32(0xfe0011cc, 0x00000000)
+
+
+/*
+st40_lmigp_regs.LMI_MIM_0
+*/
+POKE32(0xfe901008, 0x0b30013b)
+
+
+/*
+st40_lmigp_regs.LMI_MIM_1
+*/
+POKE32(0xfe90100c, 0xffff0500)
+
+
+/*
+st40_lmigp_regs.LMI_STR_0
+*/
+POKE32(0xfe901018, 0xcf35b424)
+
+
+/*
+st40_lmigp_regs.LMI_STR_1
+*/
+POKE32(0xfe90101c, 0x00242ed8)
+
+
+/*
+st40_lmigp_regs.LMI_SDRA0_0
+*/
+POKE32(0xfe901030, 0x1c001e20)
+
+
+/*
+st40_lmigp_regs.LMI_SDRA0_1
+*/
+POKE32(0xfe901034, 0x1c001e20)
+DELAY(200000)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020023)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020022)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SDMR0_0
+*/
+POKE32(0xfe901048, 0x00010000)
+
+
+/*
+st40_lmigp_regs.LMI_SDMR0_0
+*/
+POKE32(0xfe901048, 0x00018000)
+
+
+/*
+st40_lmigp_regs.LMI_SDMR0_0
+*/
+POKE32(0xfe901048, 0x00008006)
+
+
+/*
+st40_lmigp_regs.LMI_SDMR0_0
+*/
+POKE32(0xfe901048, 0x00000b63)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020022)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020024)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020024)
+
+
+/*
+st40_lmigp_regs.LMI_SDMR0_0
+*/
+POKE32(0xfe901048, 0x00000a63)
+
+
+/*
+st40_lmigp_regs.LMI_SDMR0_0
+*/
+POKE32(0xfe901048, 0x00008386)
+
+
+/*
+st40_lmigp_regs.LMI_SDMR0_0
+*/
+POKE32(0xfe901048, 0x00008006)
+
+
+/*
+st40_lmigp_regs.LMI_MIM_0
+*/
+OR32(0xfe901008, 0x00000200)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_SCR_0
+*/
+POKE32(0xfe901010, 0x00020021)
+
+
+/*
+st40_lmigp_regs.LMI_GCC_0
+*/
+POKE32(0xfe901028, 0x00000000)
+POKE32(0xfe2410fc, 0x00000001)
+POKE32(0xfe20a0ec, 0x00000002)
+POKE32(0xfe20a0f0, 0x00000005)
+POKE32(0xfe20a0f4, 0x00000003)
+POKE32(0xfe20a0f8, 0x00000003)
+POKE32(0xfe20a1ec, 0x00000002)
+POKE32(0xfe20a1f0, 0x00000005)
+POKE32(0xfe20a1f4, 0x00000003)
+POKE32(0xfe20a1f8, 0x00000003)
+POKE32(0xfe20a2ec, 0x00000002)
+POKE32(0xfe20a2f0, 0x00000005)
+POKE32(0xfe20a2f4, 0x00000003)
+POKE32(0xfe20a2f8, 0x00000003)
+POKE32(0xfe20a3ec, 0x00000002)
+POKE32(0xfe20a3f0, 0x00000005)
+POKE32(0xfe20a3f4, 0x00000003)
+POKE32(0xfe20a3f8, 0x00000003)
+POKE32(0xfe20aefc, 0x00000005)
+POKE32(0xfe540034, 0x00000003)
+POKE32(0xfe540038, 0x00000000)
+POKE32(0xfe540110, 0x00010303)
+POKE32(0xfe540114, 0x00000000)
+POKE32(0xfe20bb04, 0x00000005)
+POKE32(0xfe20bb08, 0x00000003)
+POKE32(0xfe20bb10, 0x00000002)
+POKE32(0xfe20bb24, 0x00000005)
+POKE32(0xfe20bb28, 0x00000003)
+POKE32(0xfe20bb2c, 0x00000003)
+POKE32(0xfe20bb30, 0x00000002)
+POKE32(0xfe20bb44, 0x00000005)
+POKE32(0xfe20bb48, 0x00000003)
+POKE32(0xfe20bb4c, 0x00000004)
+POKE32(0xfe20bb50, 0x00000002)
+POKE32(0xfe20bb84, 0x00000005)
+POKE32(0xfe20bb88, 0x00000003)
+POKE32(0xfe20bb8c, 0x00000003)
+POKE32(0xfe20bb90, 0x00000002)
+POKE32(0xfe231010, 0x00000008)
+POKE32(0xfe231080, 0x00000221)
+POKE32(0xfd101824, 0x0003c000)
+POKE32(0xfd102024, 0x0003c000)
+UPDATE32(0xfe001180, 0xffffffef, 0x00000000)
+POKE32(0xfe1fff04, 0x00254608)
+POKE32(0xfe00111c, 0x00010000)
+POKE32(0xfd117000, 0x0025c608)
+UPDATE32(0xfe001180, 0xfffffffb, 0x00000000)
+POKE32(0xfe401744, 0x0025c005)
+
+
+/*
+st40_ccn_regs.CCN_CCR
+*/
+POKE32(0xff00001c, 0x8000090d)

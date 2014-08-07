@@ -1,0 +1,357 @@
+/*
+ * The poke table is a series of long words, in the format
+ *
+ *	opcode, address, operand, ...
+ *
+ * An opcode of 0 marks the table end
+ */
+
+
+/*
+ * Only define the following if you want to use the "old"
+ * poke loop table interpreter. This should *not* be
+ * defined if you are now using the "romgen" tool to
+ * generate contemporary poke tables. The latest generation
+ * targetpacks may be incompatible with the old interpreter.
+ */
+#define CONFIG_SH_OLD_POKE_LOOP_PARADIGM	/* QQQ - DELETE */
+
+
+#include "asm/stx7111reg.h"
+#include "../../../cpu/sh/init_ram.S"
+
+
+	.section .data.init, "a"
+
+	.balign 32
+
+__memory_setup_table:
+
+	/* ----- STx7111 Clocks ----- */
+
+	/* Clockgen A initial setup */
+
+	/* Set PLL0 clock to 450MHz */
+	/* PLL0 of clockgenA = PLL1600 */
+
+	/* Set CLOCKGENA PLL0 into BYPASS... */
+//QQQ	OR32(STX7111_CLOCKGENA_PLL0_CFG, 0x00100000)
+
+	/* Power down CLOCKGENA PLL0... */
+//QQQ	OR32(STX7111_CLOCKGENA_POWER_CFG, 0x00000001)
+
+	/* Configure CLOCKGENA PLL0... */
+	UPDATE32(STX7111_CLOCKGENA_PLL0_CFG, 0xfff80000, (0xf << 8) | (0x01 & 0x7))
+
+	/* Enable CLOCKGENA PLL0... */
+	UPDATE32(STX7111_CLOCKGENA_POWER_CFG, 0xfffffffe, 0)
+
+	/* Wait for CLOCKGENA PLL0 to lock... */
+	WHILE_NE32(STX7111_CLOCKGENA_PLL0_CFG, 0x80000000, 0x80000000)
+
+	/* Clear CLOCKGENA PLL0 from BYPASS... */
+//QQQ	UPDATE32(STX7111_CLOCKGENA_PLL0_CFG, 0xffefffff, 0)
+
+	/* Set PLL1 clock to 800MHz */
+	/* PLL1 of clockgenA = PLL800 */
+
+	/* Set CLOCKGENA PLL1 into BYPASS... */
+//QQQ	OR32(STX7111_CLOCKGENA_PLL1_CFG, 0x00100000)
+
+	/* Power down CLOCKGENA PLL1... */
+//QQQ	OR32(STX7111_CLOCKGENA_POWER_CFG, 0x00000002)
+
+	/* Configure CLOCKGENA PLL1... */
+	UPDATE32(STX7111_CLOCKGENA_PLL1_CFG, 0xfff80000, (0x0 << 16) | (0x28 << 8) | (0x03))
+
+	/* Enable CLOCKGENA PLL1... */
+	UPDATE32(STX7111_CLOCKGENA_POWER_CFG, 0xfffffffd, 0)
+
+	/* Wait for CLOCKGENA PLL1 to lock... */
+	WHILE_NE32(STX7111_CLOCKGENA_PLL1_CFG, 0x80000000, 0x80000000)
+
+	/* Clear CLOCKGENA PLL1 from BYPASS... */
+//QQQ	UPDATE32(STX7111_CLOCKGENA_PLL1_CFG, 0xffefffff, 0)
+
+	/* Set dividers clocks */
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV0_CFG, 0x00000001)
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV1_CFG, 0x00000001)
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV2_CFG, 0x00000001)
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV3_CFG, 0x00000103)
+	POKE32(STX7111_CLOCKGENA_PLL0LS_DIV4_CFG, 0x00010100)
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV5_CFG, 0x00000307)
+	POKE32(STX7111_CLOCKGENA_PLL0LS_DIV6_CFG, 0x00010100)
+	POKE32(STX7111_CLOCKGENA_PLL0LS_DIV7_CFG, 0x00010100)
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV8_CFG, 0x00000103)
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV9_CFG, 0x00000103)
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV10_CFG, 0x00000103)
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV11_CFG, 0x00000103)
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV12_CFG, 0x00000103)
+	POKE32(STX7111_CLOCKGENA_PLL0LS_DIV13_CFG, 0x00000811)
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV14_CFG, 0x0000050B)
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV15_CFG, 0x00000307)
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV16_CFG, 0x00000103)
+	POKE32(STX7111_CLOCKGENA_PLL1_DIV17_CFG, 0x00000103)
+
+	/* Set clock sources */
+	POKE32(STX7111_CLOCKGENA_CLKOPSRC_SWITCH_CFG, 0xA6AA59AA)
+	POKE32(STX7111_CLOCKGENA_CLKOPSRC_SWITCH_CFG2, 0x0000000A)
+
+	/* Clockgen D (LMI) initial setup (lmi2xfreq = 540) */
+	/* Power down PLL... */
+	OR32(STX7111_SYSCONF_SYS_CFG11, 0x00001000)
+
+	/* Configure PLL... */
+	UPDATE32(STX7111_SYSCONF_SYS_CFG11, 0xfffff001, (0x01 << 9) | (0x12 << 1))
+
+	/* Enable CLOCKGENA PLL1... */
+	UPDATE32(STX7111_SYSCONF_SYS_CFG11, 0xffffefff, 0)
+
+	/* Wait for CLOCKGENA PLL1 to lock... (polarity inverted on lock bit) */
+	WHILE_NE32(STX7111_SYSCONF_SYS_STA03, 0x00000001, 0)
+
+
+	/* ----- STX7111 SysConf ----- */
+	/* PLI_CLOCK_ENABLE set to 0 */
+	OR32(STX7111_SYSCONF_SYS_CFG04, ~(1 << 2))
+
+	/* LMI sub-sys & pl exit from reset */
+	OR32(STX7111_SYSCONF_SYS_CFG11, (0x00000001 | 1 << 27))
+
+	/* Delay ~ 200 microseconds (assume 30MHz CPU clock) */
+	DELAY(200 * 30)
+
+	/* PLI_CLOCK_ENABLE set to 1 */
+	OR32(STX7111_SYSCONF_SYS_CFG04, (1 << 2))
+
+	/* Check both DLL on LMI0 are locked */
+	WHILE_NE32(STX7111_SYSCONF_SYS_STA03, (1 << 10) | (1 << 20), (1 << 10) | (1 << 20))
+
+	/* Adjust proga, progb, zoutproga, and receiver mode for LMI0 */
+	POKE32(STX7111_SYSCONF_SYS_CFG12, (0xa2007801 | (0x7 << 1) | (0x0 << 4) | (0x0 << 7) | (0x0 << 10)))
+
+	/* Enable AutoPrecharge */
+	POKE32(STX7111_SYSCONF_SYS_CFG38, 0x000FFE0C)
+
+	/* Force DLL1 and DLL2 command of LMI0 */
+	POKE32(STX7111_SYSCONF_SYS_CFG13, 0x00000000)
+	POKE32(STX7111_SYSCONF_SYS_CFG14, 0x00000000)
+
+	/* Set cfg55 */
+#ifndef LMI_16BITS_MODE
+#define LMI_16BITS_MODE 0
+#endif
+	POKE32(STX7111_SYSCONF_SYS_CFG55, 0x03fc2004 | (LMI_16BITS_MODE << 10) | ((0x7 & 0x7) << 7))
+
+	/* PDL offsets */
+	POKE32(STX7111_SYSCONF_SYS_CFG42, 0x07D7EBF5)
+	POKE32(STX7111_SYSCONF_SYS_CFG43, 0x000001F5)
+
+	/* ----- STX7111 EMI configuration ----- */
+
+	POKE32(ST40_EMI_BANK_ENABLE, 0x00000005)
+
+	/* NOTE: bits [0,5] define bottom address bits [22,27] of bank */
+	POKE32(ST40_EMI_BANK0_BASEADDRESS, 0x00000000)
+	POKE32(ST40_EMI_BANK1_BASEADDRESS, 0x00000010)
+	POKE32(ST40_EMI_BANK2_BASEADDRESS, 0x00000012)
+	POKE32(ST40_EMI_BANK3_BASEADDRESS, 0x00000014)
+	POKE32(ST40_EMI_BANK4_BASEADDRESS, 0x0000001C)
+
+	/* Bank 0 - On-board 32MiB Flash at address 0x00000000 -> 0x01ffffff */
+	POKE32(ST40_EMI_BANK0_EMICONFIGDATA0, 0x001016d1)
+	POKE32(ST40_EMI_BANK0_EMICONFIGDATA1, 0x9d200000)
+	POKE32(ST40_EMI_BANK0_EMICONFIGDATA2, 0x9d220000)
+	POKE32(ST40_EMI_BANK0_EMICONFIGDATA3, 0x00000000)
+
+	/* Bank 1 - STEM 8 MiB 0x04000000 -> 0x047fffff */
+	POKE32(ST40_EMI_BANK1_EMICONFIGDATA0, 0x002016d1)
+	POKE32(ST40_EMI_BANK1_EMICONFIGDATA1, 0x9d222200)
+	POKE32(ST40_EMI_BANK1_EMICONFIGDATA2, 0x9d220044)
+	POKE32(ST40_EMI_BANK1_EMICONFIGDATA3, 0x00000000)
+
+	/* Bank 2 - DVB-CI at address 0x04000000 -> 0x04FFFFFF */
+	POKE32(ST40_EMI_BANK2_EMICONFIGDATA0, 0x002046f9)
+	POKE32(ST40_EMI_BANK2_EMICONFIGDATA1, 0xa5a00000)
+	POKE32(ST40_EMI_BANK2_EMICONFIGDATA2, 0xa5a20000)
+	POKE32(ST40_EMI_BANK2_EMICONFIGDATA3, 0x00000000)
+
+	/* Bank 3 - 32MiB Boards register and either DVBCI notCe2 or
+		STEM notCS1 (16MiB + 16MiB split bank) 0x05000000 -> 0x06ffffff
+	 */
+	POKE32(ST40_EMI_BANK3_EMICONFIGDATA0, 0x002016d1)
+	POKE32(ST40_EMI_BANK3_EMICONFIGDATA1, 0x9d222200)
+	POKE32(ST40_EMI_BANK3_EMICONFIGDATA2, 0x9d220044)
+	POKE32(ST40_EMI_BANK3_EMICONFIGDATA3, 0x00000000)
+
+	/* Bank 4 - EPLD Registers at address 0x07000000 -> 0x07FFFFFF */
+	POKE32(ST40_EMI_BANK4_EMICONFIGDATA0, 0x002016d1)
+	POKE32(ST40_EMI_BANK4_EMICONFIGDATA1, 0x9d222200)
+	POKE32(ST40_EMI_BANK4_EMICONFIGDATA2, 0x9d220044)
+	POKE32(ST40_EMI_BANK4_EMICONFIGDATA3, 0x00000000)
+
+	/* Program other EMI registers */
+	POKE32(ST40_EMI_GENCFG, 0x00000010)
+
+
+	/* ----- STX7111 LMI0 configuration ----- */
+
+	/* Configuring LMI0 for DDR2 SDRAM Elpida EDE5116AHBG-8E-E
+	 # Refresh interval compute (from Ignazio, 11jan08)
+	 # 300 MHz --->  T=3.4ns => MIM[28:16]=2038 ((2294-256)+ACo-3.4ns<+AH4-7.8us)
+	 # 330 MHz --->  T=3.1ns => MIM[28:16]=2260 ((2516-256)+ACo-3.1ns<+AH4-7.8us)
+	 # 360 MHz --->  T=2.8ns => MIM[28:16]=2529 ((2785-256)+ACo-2.8ns<+AH4-7.8us)
+	 # 400 MHz --->  T=2.5ns => MIM[28:16]=2864 ((3120-256)+ACo-2.5ns=7.8us)
+	 */
+#if LMI_16BITS_MODE == 0
+	POKE32(ST40_LMI_MIM_0(), (2038 << 16) | 0x0000017b)
+#else
+	POKE32(ST40_LMI_MIM_0(), (2038 << 16) | 0x0000013b)
+#endif
+	/* Note: refresh is enabled in later steps */
+
+	POKE32(ST40_LMI_MIM_1(), 0xffff0000)
+
+	/* SDRAM Timing Register
+	 # lmi.LMI_STR_0.poke(0x4c2db41b)
+	 # FCh, 19/mar/08: change according to Raffaele G feebacks
+	 #		1-cycle additional delay between RD and WR
+	 */
+	POKE32(ST40_LMI_STR_0(), 0xcc2db41b)
+	POKE32(ST40_LMI_STR_1(), 0x002202d6)
+
+	/* SDRAM Array Attribute Register
+	 # Upper LMI addr=0x0C000000 + 128MiB=0x14000000, 13x10
+	 */
+#if LMI_16BITS_MODE == 0
+	POKE32(ST40_LMI_SDRA0_0(), 0x14000a20)
+#else
+	POKE32(ST40_LMI_SDRA0_0(), 0x10000a20)
+#endif
+
+	/* SDRAM Array Attribute Register
+	 # Upper LMI addr=0x0C000000 + 128MiB=0x14000000, 13x10
+	 */
+#if LMI_16BITS_MODE == 0
+	POKE32(ST40_LMI_SDRA1_0(), 0x14000a20)
+#else
+	POKE32(ST40_LMI_SDRA1_0(), 0x10000a20)
+#endif
+
+	/* SDRAM Control Register */
+	/* Delay ~ 200 milliseconds (assume 450MHz CPU clock) */
+	DELAY(200000 * 450)
+
+	/* Enable clock with NOP command */
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020023)
+	/* Wait NOP command for 400 nsec */
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+
+	/* Precharge all */
+	POKE32(ST40_LMI_SCR_0(), 0x00020022)
+	/* Wait NOP command for 400 nsec */
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+
+	/* Issue EMRS2 */
+	POKE32(ST40_LMI_SDMR0(), 0x00010000)
+
+	/* Issue EMRS3 */
+	POKE32(ST40_LMI_SDMR0(), 0x00018000)
+
+	/* Issue EMRS1 to enable DLL */
+	POKE32(ST40_LMI_SDMR0(), 0x00008004)
+
+	/* Issue MRS with DLL reset, CAS 5, Write recovery 5, Sequentiel, Burst lengh 8
+	 # lmi.LMI_SDMR0_0.poke(0x00000953)
+	 # FCh, 19/mar/08: change according to Raffaele G feebacks
+	 */
+	POKE32(ST40_LMI_SDMR0(), 0x00000b53)
+
+	/* Wait NOP command for 400 nsec */
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+
+	/* Precharge all */
+	POKE32(ST40_LMI_SCR_0(), 0x00020022)
+	/* 2 CBR (auto refresh) */
+	POKE32(ST40_LMI_SCR_0(), 0x00020024)
+	POKE32(ST40_LMI_SCR_0(), 0x00020024)
+
+	/* Issue MRS with CAS 5, Write recovery 5, Sequentiel, Burst lengh 8
+	 # lmi.LMI_SDMR0_0.poke(0x00000853)
+	 # FCh, 19/mar/08: change according to Raffaele G feebacks
+	 */
+	POKE32(ST40_LMI_SDMR0(), 0x00000a53)
+
+	/* Issue EMRS1 for OCD calibration default */
+	/* lmi.LMI_SDMR0_0.poke(0x000007c4) */
+
+	/* Issue EMRS1 for OCD calibration exit */
+	/* lmi.LMI_SDMR0_0.poke(0x00000444) */
+
+	/* Enable auto refresh
+	 # lmi.LMI_MIM_0.poke(0x0c30037b)
+	 # FCh, 12/feb/08: cleaner to modify only refresh bit
+	 */
+	OR32(ST40_LMI_MIM_0(), (1 << 9))
+
+	/* DQS recovery mechanism (1=enabled)
+	 # lmi.LMI_MIM_0.poke(lmi.LMI_MIM_0.peek() | (1 << 5))
+	 # FCh, 14/jan/08, NO DQS recovery
+	 */
+	UPDATE32(ST40_LMI_MIM_0(), ~(1 << 5), 0)
+
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+	POKE32(ST40_LMI_SCR_0(), 0x00020021)
+
+	POKE32(ST40_LMI_GCC_0(), 0x00000000)
+
+#ifdef CONFIG_SH_SE_MODE
+	/*
+	 * Note that we also manually need to move the LMI base addresses to
+	 * their 32-bit SE mode locations as defined in the datasheet and change the
+	 * 'upper bound addresses' (in row attribute registers) for the LMIs.
+	 */
+	UPDATE_LONG(STX7111_SYSCONF_SYS_CFG38, 0xFFFFFF00, 0x00000040)
+	UPDATE_LONG(STX7111_SYSCONF_SYS_CFG39, 0xFFFFFF00, 0x00000080)
+	/* Change LMI upper bound addresses
+	 * Upper LMI addr=0x40000000 + 128Mbytes=0x48000000, 13x10
+	 */
+	UPDATE32(ST40_LMI_SDRA0_0(), 0x001FFFFF, (0x48000000 & 0xFFE00000))
+	UPDATE32(ST40_LMI_SDRA1_0(), 0x001FFFFF, (0x48000000 & 0xFFE00000))
+#endif	/* CONFIG_SH_SE_MODE */
+
+	END_MARKER
+
+__memory_setup_table_end:
+
+	.end

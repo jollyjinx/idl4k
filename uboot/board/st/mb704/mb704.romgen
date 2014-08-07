@@ -1,0 +1,781 @@
+
+
+/*
+sti5197_system_services_regs.REGISTER_LOCK
+*/
+/* PEEK(0xfdc00300) (used target peek value 0x00000100) */
+
+
+/*
+sti5197_system_services_regs.REGISTER_LOCK
+*/
+POKE32(0xfdc00300, 0x000000f0)
+
+
+/*
+sti5197_system_services_regs.REGISTER_LOCK
+*/
+POKE32(0xfdc00300, 0x0000000f)
+
+
+/*
+sti5197_system_services_regs.REGISTER_LOCK
+*/
+/* PEEK(0xfdc00300) (used target peek value 0x00000000) */
+
+
+/*
+sti5197_system_services_regs.REGISTER_LOCK
+*/
+WHILE_NE32(0xfdc00300, 0x00000100, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.MODE_CONTROL
+*/
+POKE32(0xfdc00110, 0x00000001)
+
+
+/*
+sti5197_system_services_regs.MODE_CONTROL
+*/
+/* PEEK(0xfdc00110) (used target peek value 0x00000001) */
+
+
+/*
+sti5197_system_services_regs.MODE_CONTROL
+*/
+WHILE_NE32(0xfdc00110, 0x00000001, 0x00000001)
+
+
+/*
+sti5197_system_services_regs.PLLA_CONFIG1
+*/
+POKE32(0xfdc00004, 0x00002000)
+
+
+/*
+sti5197_system_services_regs.PLLB_CONFIG1
+*/
+POKE32(0xfdc0000c, 0x00002000)
+
+
+/*
+sti5197_system_services_regs.PLLA_CONFIG1
+*/
+POKE32(0xfdc00004, 0x00002000)
+
+
+/*
+sti5197_system_services_regs.PLLA_CONFIG0
+*/
+POKE32(0xfdc00000, 0x00002303)
+
+
+/*
+sti5197_system_services_regs.PLLB_CONFIG1
+*/
+POKE32(0xfdc0000c, 0x00002000)
+
+
+/*
+sti5197_system_services_regs.PLLB_CONFIG0
+*/
+POKE32(0xfdc00008, 0x00002803)
+
+
+/*
+sti5197_system_services_regs.CPU_CLK_CONFIG0
+*/
+POKE32(0xfdc00090, 0x0000366c)
+
+
+/*
+sti5197_system_services_regs.CPU_CLK_CONFIG1
+*/
+POKE32(0xfdc00094, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.CPU_CLK_CONFIG2
+*/
+POKE32(0xfdc00098, 0x00000053)
+
+
+/*
+sti5197_system_services_regs.LMI_CLK_CONFIG0
+*/
+POKE32(0xfdc000a0, 0x0000cccc)
+
+
+/*
+sti5197_system_services_regs.LMI_CLK_CONFIG1
+*/
+POKE32(0xfdc000a4, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.LMI_CLK_CONFIG2
+*/
+POKE32(0xfdc000a8, 0x00000075)
+
+
+/*
+sti5197_system_services_regs.BLLITER_CLK_CONFIG0
+*/
+POKE32(0xfdc000ac, 0x0000366c)
+
+
+/*
+sti5197_system_services_regs.BLLITER_CLK_CONFIG1
+*/
+POKE32(0xfdc000b0, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.BLLITER_CLK_CONFIG2
+*/
+POKE32(0xfdc000b4, 0x00000053)
+
+
+/*
+sti5197_system_services_regs.SYSTEM_CLK_CONFIG0
+*/
+POKE32(0xfdc000b8, 0x0000739c)
+
+
+/*
+sti5197_system_services_regs.SYSTEM_CLK_CONFIG1
+*/
+POKE32(0xfdc000bc, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.SYSTEM_CLK_CONFIG2
+*/
+POKE32(0xfdc000c0, 0x00000014)
+
+
+/*
+sti5197_system_services_regs.FDMA_PLL_CLK_CONFIG0
+*/
+POKE32(0xfdc000c4, 0x00000aaa)
+
+
+/*
+sti5197_system_services_regs.FDMA_PLL_CLK_CONFIG1
+*/
+POKE32(0xfdc000c8, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.FDMA_PLL_CLK_CONFIG2
+*/
+POKE32(0xfdc000cc, 0x00000071)
+
+
+/*
+sti5197_system_services_regs.AV_CLK_CONFIG0
+*/
+POKE32(0xfdc000d0, 0x00003c78)
+
+
+/*
+sti5197_system_services_regs.AV_CLK_CONFIG1
+*/
+POKE32(0xfdc000d4, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.AV_CLK_CONFIG2
+*/
+POKE32(0xfdc000d8, 0x00000013)
+
+
+/*
+sti5197_system_services_regs.SPARE_PLL_CLK_CONFIG0
+*/
+POKE32(0xfdc000dc, 0x00003c78)
+
+
+/*
+sti5197_system_services_regs.SPARE_PLL_CLK_CONFIG1
+*/
+POKE32(0xfdc000e0, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.SPARE_PLL_CLK_CONFIG2
+*/
+POKE32(0xfdc000e4, 0x00000013)
+
+
+/*
+sti5197_system_services_regs.ETHERNET_CLK_CONFIG0
+*/
+POKE32(0xfdc000e8, 0x00003c78)
+
+
+/*
+sti5197_system_services_regs.ETHERNET_CLK_CONFIG1
+*/
+POKE32(0xfdc000ec, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.ETHERNET_CLK_CONFIG2
+*/
+POKE32(0xfdc000f0, 0x00000013)
+
+
+/*
+sti5197_system_services_regs.ST40_ICK_CLK_CONFIG0
+*/
+POKE32(0xfdc000f4, 0x00000aaa)
+
+
+/*
+sti5197_system_services_regs.ST40_ICK_CLK_CONFIG1
+*/
+POKE32(0xfdc000f8, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.ST40_ICK_CLK_CONFIG2
+*/
+POKE32(0xfdc000fc, 0x00000071)
+
+
+/*
+sti5197_system_services_regs.ST40_PCK_CLK_CONFIG0
+*/
+POKE32(0xfdc00100, 0x0000cccc)
+
+
+/*
+sti5197_system_services_regs.ST40_PCK_CLK_CONFIG1
+*/
+POKE32(0xfdc00104, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.ST40_PCK_CLK_CONFIG2
+*/
+POKE32(0xfdc00108, 0x00000075)
+
+
+/*
+sti5197_system_services_regs.PLL_SELECT_CFG
+*/
+POKE32(0xfdc00180, 0x00000844)
+
+
+/*
+sti5197_system_services_regs.PLL_SELECT_CFG .ALT_TRANSPORT_SELECT [offset 12, size 1]
+*/
+/* PEEK(0xfdc00180) (used target peek value 0x00000844) */
+
+
+/*
+sti5197_system_services_regs.PLL_SELECT_CFG .ALT_TRANSPORT_SELECT [offset 12, size 1]
+*/
+POKE32(0xfdc00180, 0x00001844)
+
+
+/*
+sti5197_system_services_regs.PLL_SELECT_CFG .ALT_TRANSPORT_SELECT [offset 12, size 1]
+*/
+UPDATE32(0xfdc00180, 0xffffefff, 0x00001000)
+
+
+/*
+sti5197_system_services_regs.PLLA_CONFIG1
+*/
+/* PEEK(0xfdc00004) (used target peek value 0x00002000) */
+
+
+/*
+sti5197_system_services_regs.PLLA_CONFIG1
+*/
+POKE32(0xfdc00004, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.PLLB_CONFIG1
+*/
+/* PEEK(0xfdc0000c) (used target peek value 0x00002000) */
+
+
+/*
+sti5197_system_services_regs.PLLB_CONFIG1
+*/
+POKE32(0xfdc0000c, 0x00000000)
+DELAY(200)
+DELAY(20)
+
+
+/*
+sti5197_system_services_regs.PLLA_CONFIG1
+*/
+/* PEEK(0xfdc00004) (used target peek value 0x00008000) */
+DELAY(20)
+
+
+/*
+sti5197_system_services_regs.PLLB_CONFIG1
+*/
+/* PEEK(0xfdc0000c) (used target peek value 0x00008000) */
+
+
+/*
+sti5197_system_services_regs.SPARE1_CLK_SETUP0
+*/
+POKE32(0xfdc00014, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.PCM_CLK_SETUP0
+*/
+POKE32(0xfdc00020, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.SPDIF_CLK_SETUP0
+*/
+POKE32(0xfdc00030, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.SC_CLK_SETUP0
+*/
+POKE32(0xfdc00040, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.PIX_CLK_SETUP0
+*/
+POKE32(0xfdc00054, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.FDMA_FS_CLK_SETUP0
+*/
+POKE32(0xfdc00060, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.AUX_CLK_SETUP0
+*/
+POKE32(0xfdc00070, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.USB_CLK_SETUP0
+*/
+POKE32(0xfdc00080, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.FSA_SETUP
+*/
+POKE32(0xfdc00010, 0x00000f08)
+
+
+/*
+sti5197_system_services_regs.FSB_SETUP
+*/
+POKE32(0xfdc00050, 0x00000f08)
+
+
+/*
+sti5197_system_services_regs.FSA_SETUP
+*/
+POKE32(0xfdc00010, 0x00000f18)
+
+
+/*
+sti5197_system_services_regs.FSB_SETUP
+*/
+POKE32(0xfdc00050, 0x00000f18)
+
+
+/*
+sti5197_system_services_regs.SPARE1_CLK_SETUP0
+*/
+POKE32(0xfdc00014, 0x00000af1)
+
+
+/*
+sti5197_system_services_regs.SPARE1_CLK_SETUP1
+*/
+POKE32(0xfdc00018, 0x00001c72)
+
+
+/*
+sti5197_system_services_regs.DCO_MODE_CFG
+*/
+POKE32(0xfdc00170, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.PCM_CLK_SETUP0
+*/
+POKE32(0xfdc00020, 0x00000af3)
+
+
+/*
+sti5197_system_services_regs.PCM_CLK_SETUP1
+*/
+POKE32(0xfdc00024, 0x00003c00)
+
+
+/*
+sti5197_system_services_regs.DCO_MODE_CFG
+*/
+POKE32(0xfdc00170, 0x00000001)
+
+
+/*
+sti5197_system_services_regs.DCO_MODE_CFG
+*/
+POKE32(0xfdc00170, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.SPDIF_CLK_SETUP0
+*/
+POKE32(0xfdc00030, 0x00000b31)
+
+
+/*
+sti5197_system_services_regs.SPDIF_CLK_SETUP1
+*/
+POKE32(0xfdc00034, 0x00004dea)
+
+
+/*
+sti5197_system_services_regs.DCO_MODE_CFG
+*/
+POKE32(0xfdc00170, 0x00000001)
+
+
+/*
+sti5197_system_services_regs.SC_CLK_SETUP0
+*/
+POKE32(0xfdc00040, 0x00000af1)
+
+
+/*
+sti5197_system_services_regs.SC_CLK_SETUP1
+*/
+POKE32(0xfdc00044, 0x00001c72)
+
+
+/*
+sti5197_system_services_regs.DCO_MODE_CFG
+*/
+POKE32(0xfdc00170, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.PIX_CLK_SETUP0
+*/
+POKE32(0xfdc00054, 0x00000af1)
+
+
+/*
+sti5197_system_services_regs.PIX_CLK_SETUP1
+*/
+POKE32(0xfdc00058, 0x00001c72)
+
+
+/*
+sti5197_system_services_regs.DCO_MODE_CFG
+*/
+POKE32(0xfdc00170, 0x00000001)
+
+
+/*
+sti5197_system_services_regs.FDMA_FS_CLK_SETUP0
+*/
+POKE32(0xfdc00060, 0x00000a39)
+
+
+/*
+sti5197_system_services_regs.FDMA_FS_CLK_SETUP1
+*/
+POKE32(0xfdc00064, 0x00003334)
+
+
+/*
+sti5197_system_services_regs.AUX_CLK_SETUP0
+*/
+POKE32(0xfdc00070, 0x00000af1)
+
+
+/*
+sti5197_system_services_regs.AUX_CLK_SETUP1
+*/
+POKE32(0xfdc00074, 0x00001c72)
+
+
+/*
+sti5197_system_services_regs.USB_CLK_SETUP0
+*/
+POKE32(0xfdc00080, 0x00000ab3)
+
+
+/*
+sti5197_system_services_regs.USB_CLK_SETUP1
+*/
+POKE32(0xfdc00084, 0x00000000)
+
+
+/*
+sti5197_system_services_regs.FSA_SETUP
+*/
+POKE32(0xfdc00010, 0x00000f10)
+
+
+/*
+sti5197_system_services_regs.FSB_SETUP
+*/
+POKE32(0xfdc00050, 0x00000f10)
+DELAY(200)
+
+
+/*
+sti5197_system_services_regs.MODE_CONTROL
+*/
+POKE32(0xfdc00110, 0x00000002)
+
+
+/*
+sti5197_system_services_regs.MODE_CONTROL
+*/
+/* PEEK(0xfdc00110) (used target peek value 0x00000002) */
+
+
+/*
+sti5197_system_services_regs.MODE_CONTROL
+*/
+WHILE_NE32(0xfdc00110, 0x00000002, 0x00000002)
+
+
+/*
+LMI.LMI_MIM0
+*/
+POKE32(0xfe000008, 0x061c0203)
+
+
+/*
+LMI.LMI_STR
+*/
+POKE32(0xfe000018, 0x3ff27e7a)
+
+
+/*
+LMI.LMI_SDRA0
+*/
+POKE32(0xfe000030, 0x10001a00)
+
+
+/*
+LMI.LMI_SDRA1
+*/
+POKE32(0xfe000038, 0x10001a00)
+DELAY(200)
+
+
+/*
+LMI.LMI_SCR
+*/
+POKE32(0xfe000010, 0x00000003)
+
+
+/*
+LMI.LMI_SCR
+*/
+POKE32(0xfe000010, 0x00000001)
+
+
+/*
+LMI.LMI_SCR
+*/
+POKE32(0xfe000010, 0x00000002)
+
+
+/*
+LMI.LMI_SDMR0
+*/
+POKE32(0xfe000048, 0x00000400)
+
+
+/*
+LMI.LMI_SDMR1
+*/
+POKE32(0xfe000050, 0x00000400)
+DELAY(200)
+
+
+/*
+LMI.LMI_SDMR0
+*/
+POKE32(0xfe000048, 0x00000133)
+
+
+/*
+LMI.LMI_SDMR1
+*/
+POKE32(0xfe000050, 0x00000133)
+DELAY(200)
+
+
+/*
+LMI.LMI_SCR
+*/
+POKE32(0xfe000010, 0x00000002)
+
+
+/*
+LMI.LMI_SCR
+*/
+POKE32(0xfe000010, 0x00000004)
+
+
+/*
+LMI.LMI_SCR
+*/
+POKE32(0xfe000010, 0x00000004)
+
+
+/*
+LMI.LMI_SCR
+*/
+POKE32(0xfe000010, 0x00000004)
+
+
+/*
+LMI.LMI_SDMR0
+*/
+POKE32(0xfe000048, 0x00000033)
+
+
+/*
+LMI.LMI_SDMR1
+*/
+POKE32(0xfe000050, 0x00000033)
+
+
+/*
+LMI.LMI_SCR
+*/
+POKE32(0xfe000010, 0x00000000)
+
+
+/*
+LMI.LMI_COC_UPPER
+*/
+POKE32(0xfe00002c, 0x00330000)
+
+
+/*
+LMI.LMI_COC_LOWER
+*/
+POKE32(0xfe000028, 0x0003e000)
+
+
+/*
+sti5197_hd_config_monitor_regs.CONFIG_CONTROL_H
+*/
+/* PEEK(0xfd901014) (used target peek value 0x00000000) */
+
+
+/*
+sti5197_hd_config_monitor_regs.CONFIG_CONTROL_H
+*/
+POKE32(0xfd901014, 0x00000000)
+
+
+/*
+sti5197_hd_config_monitor_regs.CONFIG_CONTROL_M
+*/
+/* PEEK(0xfd901048) (used target peek value 0x000000c0) */
+
+
+/*
+sti5197_hd_config_monitor_regs.CONFIG_CONTROL_M
+*/
+POKE32(0xfd901048, 0x400000c0)
+
+
+/*
+LMI.LMI_MIM1
+*/
+POKE32(0xfe00000c, 0x00000075)
+
+
+/*
+sti5197_hd_config_monitor_regs.CONFIG_CONTROL_C
+*/
+/* PEEK(0xfd901000) (used target peek value 0x00000000) */
+
+
+/*
+sti5197_hd_config_monitor_regs.CONFIG_CONTROL_C
+*/
+POKE32(0xfd901000, 0x00800000)
+
+
+/*
+sti5197_system_services_regs.CLOCK_OBSERVATION_CFG
+*/
+POKE32(0xfdc00188, 0x0000002a)
+
+
+/*
+sti5197_hs_config_monitor_regs.CONFIG_MONITOR_A
+*/
+/* PEEK(0xfd002008) (used target peek value 0x38472000) */
+
+
+/*
+sti5197_hd_config_monitor_regs.CONFIG_MONITOR_G
+*/
+/* PEEK(0xfd901030) (used target peek value 0x00001279) */
+
+
+/*
+sti5197_hd_config_monitor_regs.CONFIG_MONITOR_J
+*/
+/* PEEK(0xfd90103c) (used target peek value 0x8ac30000) */
+
+
+/*
+sti5197_system_services_regs.REGISTER_LOCK
+*/
+/* PEEK(0xfdc00300) (used target peek value 0x00000000) */
+
+
+/*
+sti5197_system_services_regs.REGISTER_LOCK
+*/
+POKE32(0xfdc00300, 0x00000100)
+
+
+/*
+sti5197_system_services_regs.REGISTER_LOCK
+*/
+/* PEEK(0xfdc00300) (used target peek value 0x00000100) */
+
+
+/*
+sti5197_system_services_regs.REGISTER_LOCK
+*/
+WHILE_NE32(0xfdc00300, 0x00000100, 0x00000100)
+
+
+/*
+st40_ccn_regs.CCN_CCR
+*/
+POKE32(0xff00001c, 0x8000090d)

@@ -1,0 +1,2501 @@
+/*
+This file was automatically generated on Tue 28 Sep 10 at 18:31:56 by user mcgoogan, host hoiho using romgen R1.5.0 with the ST TargetPack mb837stx7108
+
+TargetPack files used:
+/opt/STM/STLinux-2.3/host/stmc/targetpack/boards/mb837stx7108/mb837stx7108.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/boards/mb837stx7108/mb837stx7108.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/boards/mb837stx7108/mb837stx7108_design.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/boards/mb837stx7108/mb837stx7108_epld.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/jtag_core.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st231.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st231.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_300.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_300.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_300_design.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_ccn_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_pmb_addr_array_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_pmb_data_array_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/cores/st40_pmb_regs.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/debug/tapmux.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/peripherals/convertor.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/peripherals/st40_emi_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/peripherals/tapmux.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/clk_common.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/l2_cache_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/st40_ddr3mixer_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/st40_ddr3pctl_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/st40_ddr3phy_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/stx7108.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/stx7108.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/stx7108_clockgena_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/stx7108_clockgenb_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/stx7108_ddrdbg.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/stx7108_design.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/stx7108_interco_init.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/stx7108_spi_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/stx7108_sysconf_0_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/stx7108_sysconf_1_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/stx7108_sysconf_2_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/stx7108_sysconf_3_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/socs/stx7108/stx7108_sysconf_4_regs.xml
+/opt/STM/STLinux-2.3/host/stmc/targetpack/utilities/tap/__init__.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/utilities/tap/jtag.py
+/opt/STM/STLinux-2.3/host/stmc/targetpack/utilities/utilities.py
+*/
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+IF_EQ32(1, 0xfde20000, 0xf0000000, 0x00000000)
+
+
+/*
+stx7108_spi_regs.SPI_CLOCKDIV
+*/
+  POKE32(0xfe902010, 0x00000006)
+
+
+/*
+stx7108_spi_regs.SPI_CONFIGDATA
+*/
+  POKE32(0xfe902020, 0x00020011)
+
+
+/*
+stx7108_spi_regs.SPI_STATUSMODECHANGE
+*/
+  WHILE_NE32(0xfe902028, 0x00000001, 0x00000001)
+
+
+/*
+stx7108_spi_regs.SPI_MODESELECT
+*/
+  POKE32(0xfe902018, 0x00000003)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+ELSE(1)
+
+
+/*
+stx7108_spi_regs.SPI_CLOCKDIV
+*/
+  POKE32(0xfe902010, 0x00000002)
+
+
+/*
+stx7108_spi_regs.SPI_CONFIGDATA
+*/
+  POKE32(0xfe902020, 0x00020011)
+
+
+/*
+stx7108_spi_regs.SPI_STATUSMODECHANGE
+*/
+  WHILE_NE32(0xfe902028, 0x00000001, 0x00000001)
+
+
+/*
+stx7108_spi_regs.SPI_MODESELECT
+*/
+  POKE32(0xfe902018, 0x00000005)
+ENDIF(1)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+POKE32(0xfde98014, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG2
+*/
+POKE32(0xfde98024, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL0_CFG
+*/
+OR32(0xfde98000, 0x00100000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_POWER_CFG
+*/
+OR32(0xfde98010, 0x00000001)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL0_CFG
+*/
+UPDATE32(0xfde98000, 0xfff80000, 0x00003203)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_POWER_CFG
+*/
+UPDATE32(0xfde98010, 0xfffffffe, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL0_CFG
+*/
+WHILE_NE32(0xfde98000, 0x80000000, 0x80000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL0_CFG
+*/
+UPDATE32(0xfde98000, 0xffefffff, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL1_CFG
+*/
+OR32(0xfde98004, 0x00100000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_POWER_CFG
+*/
+OR32(0xfde98010, 0x00000002)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL1_CFG
+*/
+UPDATE32(0xfde98004, 0xfff80000, 0x00000f02)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_POWER_CFG
+*/
+UPDATE32(0xfde98010, 0xfffffffd, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL1_CFG
+*/
+WHILE_NE32(0xfde98004, 0x80000000, 0x80000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL1_CFG
+*/
+UPDATE32(0xfde98004, 0xffefffff, 0x00000000)
+POKE32(0xfde98904, 0x00000004)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xfffffff3, 0x00000004)
+POKE32(0xfde98908, 0x00000004)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xffffffcf, 0x00000010)
+POKE32(0xfde9890c, 0x00000003)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xffffff3f, 0x00000040)
+POKE32(0xfde98a10, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xfffffcff, 0x00000100)
+POKE32(0xfde98a14, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xfffff3ff, 0x00000400)
+POKE32(0xfde98b18, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xffffcfff, 0x00002000)
+POKE32(0xfde98a1c, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xffff3fff, 0x00004000)
+POKE32(0xfde98a20, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xfffcffff, 0x00010000)
+POKE32(0xfde98a24, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xfff3ffff, 0x00040000)
+POKE32(0xfde98a28, 0x00000004)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xffcfffff, 0x00100000)
+POKE32(0xfde98a2c, 0x0000000e)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xff3fffff, 0x00400000)
+POKE32(0xfde98a30, 0x00000004)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xfcffffff, 0x01000000)
+POKE32(0xfde98a34, 0x00000009)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xf3ffffff, 0x04000000)
+POKE32(0xfde98b38, 0x00000011)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0xcfffffff, 0x20000000)
+POKE32(0xfde98a3c, 0x00000004)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfde98014, 0x3fffffff, 0x40000000)
+POKE32(0xfde98b40, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG2
+*/
+UPDATE32(0xfde98024, 0xfffffffc, 0x00000002)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+IF_EQ32(1, 0xfde20000, 0xf0000000, 0x00000000)
+  POKE32(0xfde98b44, 0x00000001)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG2
+*/
+  UPDATE32(0xfde98024, 0xfffffff3, 0x00000008)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+ELSE(1)
+  POKE32(0xfde98a44, 0x00000001)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG2
+*/
+  UPDATE32(0xfde98024, 0xfffffff3, 0x00000004)
+ENDIF(1)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+POKE32(0xfdab8014, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG2
+*/
+POKE32(0xfdab8024, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL0_CFG
+*/
+OR32(0xfdab8000, 0x00100000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_POWER_CFG
+*/
+OR32(0xfdab8010, 0x00000001)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL0_CFG
+*/
+UPDATE32(0xfdab8000, 0xfff80000, 0x00000b01)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_POWER_CFG
+*/
+UPDATE32(0xfdab8010, 0xfffffffe, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL0_CFG
+*/
+WHILE_NE32(0xfdab8000, 0x80000000, 0x80000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL0_CFG
+*/
+UPDATE32(0xfdab8000, 0xffefffff, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL1_CFG
+*/
+OR32(0xfdab8004, 0x00100000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_POWER_CFG
+*/
+OR32(0xfdab8010, 0x00000002)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL1_CFG
+*/
+UPDATE32(0xfdab8004, 0xfff80000, 0x00002803)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_POWER_CFG
+*/
+UPDATE32(0xfdab8010, 0xfffffffd, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL1_CFG
+*/
+WHILE_NE32(0xfdab8004, 0x80000000, 0x80000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_PLL1_CFG
+*/
+UPDATE32(0xfdab8004, 0xffefffff, 0x00000000)
+POKE32(0xfdab8b04, 0x00000001)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xfffffff3, 0x00000008)
+POKE32(0xfdab8b08, 0x00000001)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xffffffcf, 0x00000020)
+POKE32(0xfdab8b0c, 0x00000001)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xffffff3f, 0x00000080)
+POKE32(0xfdab8a10, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xfffffcff, 0x00000100)
+POKE32(0xfdab8b14, 0x00000003)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xfffff3ff, 0x00000800)
+POKE32(0xfdab8b18, 0x00000002)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xffffcfff, 0x00002000)
+POKE32(0xfdab8b1c, 0x00000002)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xffff3fff, 0x00008000)
+POKE32(0xfdab8b20, 0x00000003)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xfffcffff, 0x00020000)
+POKE32(0xfdab8b24, 0x00000003)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xfff3ffff, 0x00080000)
+POKE32(0xfdab8b28, 0x0000001f)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xffcfffff, 0x00200000)
+POKE32(0xfdab8b2c, 0x00000007)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xff3fffff, 0x00800000)
+POKE32(0xfdab8b30, 0x00000007)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xfcffffff, 0x02000000)
+POKE32(0xfdab8b34, 0x00000007)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xf3ffffff, 0x08000000)
+POKE32(0xfdab8a38, 0x00000000)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0xcfffffff, 0x10000000)
+POKE32(0xfdab8b3c, 0x00000003)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG
+*/
+UPDATE32(0xfdab8014, 0x3fffffff, 0x80000000)
+POKE32(0xfdab8b40, 0x0000000f)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG2
+*/
+UPDATE32(0xfdab8024, 0xfffffffc, 0x00000002)
+POKE32(0xfdab8b44, 0x00000003)
+
+
+/*
+stx7108_clockgena_regs.CLOCKGENA_CLKOPSRC_SWITCH_CFG2
+*/
+UPDATE32(0xfdab8024, 0xfffffff3, 0x00000008)
+
+
+/*
+stx7108_clockgenb_regs.CLOCKGENB_LOCK
+*/
+POKE32(0xfd546010, 0x0000c0de)
+
+
+/*
+stx7108_clockgenb_regs.CLOCKGENB_CRISTAL_SEL
+*/
+POKE32(0xfd5460b8, 0x00000000)
+
+
+/*
+stx7108_clockgenb_regs.CLOCKGENB_FS1_MD3
+*/
+POKE32(0xfd546080, 0x00000013)
+
+
+/*
+stx7108_clockgenb_regs.CLOCKGENB_FS1_PE3
+*/
+POKE32(0xfd546084, 0x00000000)
+
+
+/*
+stx7108_clockgenb_regs.CLOCKGENB_FS1_SDIV3
+*/
+POKE32(0xfd54608c, 0x00000002)
+
+
+/*
+stx7108_clockgenb_regs.CLOCKGENB_FS1_EN_PRG3
+*/
+POKE32(0xfd546088, 0x00000001)
+
+
+/*
+stx7108_clockgenb_regs.CLOCKGENB_FS1_EN_PRG3
+*/
+POKE32(0xfd546088, 0x00000000)
+
+
+/*
+stx7108_clockgenb_regs.CLOCKGENB_LOCK
+*/
+POKE32(0xfd546010, 0x0000c1a0)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+IF_EQ32(1, 0xfde20000, 0xf0000000, 0x00000000)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_CONFIG4
+*/
+  UPDATE32(0xfde2004c, 0xfffffffe, 0x00000000)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_CONFIG4
+*/
+  UPDATE32(0xfde2004c, 0xfe0000ff, 0x00040100)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_CONFIG4
+*/
+  OR32(0xfde2004c, 0x00000001)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS5
+*/
+  WHILE_NE32(0xfde20014, 0x00000001, 0x00000001)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+ELSE(1)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_CONFIG4
+*/
+  UPDATE32(0xfde2004c, 0xfffffffe, 0x00000000)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_CONFIG4
+*/
+  UPDATE32(0xfde2004c, 0xfe0000ff, 0x01850f00)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_CONFIG4
+*/
+  OR32(0xfde2004c, 0x00000001)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS5
+*/
+  WHILE_NE32(0xfde20014, 0x00000001, 0x00000001)
+ENDIF(1)
+
+
+/*
+st40_emi_regs.EMI_BANK_ENABLE
+*/
+POKE32(0xfe900860, 0x00000005)
+
+
+/*
+st40_emi_regs.EMI_BANK0_BASEADDRESS
+*/
+POKE32(0xfe900800, 0x00000000)
+
+
+/*
+st40_emi_regs.EMI_BANK1_BASEADDRESS
+*/
+POKE32(0xfe900810, 0x00000010)
+
+
+/*
+st40_emi_regs.EMI_BANK2_BASEADDRESS
+*/
+POKE32(0xfe900820, 0x00000012)
+
+
+/*
+st40_emi_regs.EMI_BANK3_BASEADDRESS
+*/
+POKE32(0xfe900830, 0x0000001c)
+
+
+/*
+st40_emi_regs.EMI_BANK4_BASEADDRESS
+*/
+POKE32(0xfe900840, 0x00000020)
+
+
+/*
+st40_emi_regs.EMI_BANK0_EMICONFIGDATA0
+*/
+POKE32(0xfe900100, 0x041016d1)
+
+
+/*
+st40_emi_regs.EMI_BANK0_EMICONFIGDATA1
+*/
+POKE32(0xfe900108, 0x9d200000)
+
+
+/*
+st40_emi_regs.EMI_BANK0_EMICONFIGDATA2
+*/
+POKE32(0xfe900110, 0x9d224400)
+
+
+/*
+st40_emi_regs.EMI_BANK0_EMICONFIGDATA3
+*/
+POKE32(0xfe900118, 0x00000000)
+
+
+/*
+st40_emi_regs.EMI_BANK1_EMICONFIGDATA0
+*/
+POKE32(0xfe900140, 0x041016d1)
+
+
+/*
+st40_emi_regs.EMI_BANK1_EMICONFIGDATA1
+*/
+POKE32(0xfe900148, 0x9d200000)
+
+
+/*
+st40_emi_regs.EMI_BANK1_EMICONFIGDATA2
+*/
+POKE32(0xfe900150, 0x9d224400)
+
+
+/*
+st40_emi_regs.EMI_BANK1_EMICONFIGDATA3
+*/
+POKE32(0xfe900158, 0x00000000)
+
+
+/*
+st40_emi_regs.EMI_BANK2_EMICONFIGDATA0
+*/
+POKE32(0xfe900180, 0x002016d1)
+
+
+/*
+st40_emi_regs.EMI_BANK2_EMICONFIGDATA1
+*/
+POKE32(0xfe900188, 0x9d222200)
+
+
+/*
+st40_emi_regs.EMI_BANK2_EMICONFIGDATA2
+*/
+POKE32(0xfe900190, 0x9d220044)
+
+
+/*
+st40_emi_regs.EMI_BANK2_EMICONFIGDATA3
+*/
+POKE32(0xfe900198, 0x00000000)
+
+
+/*
+st40_emi_regs.EMI_BANK3_EMICONFIGDATA0
+*/
+POKE32(0xfe9001c0, 0x00c447f9)
+
+
+/*
+st40_emi_regs.EMI_BANK3_EMICONFIGDATA1
+*/
+POKE32(0xfe9001c8, 0xff86a8a8)
+
+
+/*
+st40_emi_regs.EMI_BANK3_EMICONFIGDATA2
+*/
+POKE32(0xfe9001d0, 0xff86a8a8)
+
+
+/*
+st40_emi_regs.EMI_BANK3_EMICONFIGDATA3
+*/
+POKE32(0xfe9001d8, 0x0000000a)
+
+
+/*
+st40_emi_regs.EMI_GENCFG
+*/
+POKE32(0xfe900028, 0x00000010)
+
+
+/*
+stx7108_sysconf_0_regs.SYSTEM_CONFIG12
+*/
+UPDATE32(0xfde30028, 0xfffffffd, 0x00000000)
+DELAY(45000000)
+
+
+/*
+stx7108_sysconf_0_regs.SYSTEM_CONFIG12
+*/
+OR32(0xfde30028, 0x00000002)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+IF_EQ32(1, 0xfde20000, 0xf0000000, 0x00000000)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_CONFIG18
+*/
+  OR32(0xfde20084, 0x00000003)
+ENDIF(1)
+DELAY(4500000)
+
+
+/*
+st40_ddr3mixer_regs.DDR3MIXER_DDR_BASE_ADDR
+*/
+POKE32(0xfde52030, 0x00500040)
+
+
+/*
+st40_ddr3mixer_regs.DDR3MIXER_DDR_PARAMETER
+*/
+POKE32(0xfde52038, 0x23220e29)
+
+
+/*
+st40_ddr3mixer_regs.DDR3MIXER_GEN_PURPOSE_REG0
+*/
+POKE32(0xfde521c0, 0x104020ca)
+
+
+/*
+st40_ddr3mixer_regs.DDR3MIXER_GEN_CTRL
+*/
+POKE32(0xfde52000, 0x00080710)
+
+
+/*
+st40_ddr3mixer_regs.DDR3MIXER_HI_PRI_PORT_FLOW_REG1
+*/
+POKE32(0xfde520a0, 0x1f034040)
+
+
+/*
+st40_ddr3mixer_regs.DDR3MIXER_ROW_ADDR_MASK
+*/
+POKE32(0xfde52028, 0xfffffc00)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TOGCNT1U
+*/
+POKE32(0xfde500c0, 0x0000010a)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TINIT
+*/
+POKE32(0xfde500c4, 0x000000c8)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TOGCNT100N
+*/
+POKE32(0xfde500cc, 0x0000001a)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRSTH
+*/
+POKE32(0xfde500c8, 0x000001f4)
+DELAY(4500000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PGSR0
+*/
+WHILE_NE32(0xfde50410, 0x00000027, 0x00000027)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde50484, 0x00010000, 0x00010000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_DXCCR
+*/
+OR32(0xfde50434, 0x00000001)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_PHYIOCRV1
+*/
+POKE32(0xfde5031c, 0x00004301)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+IF_GT32(1, 0xfde20000, 0xf0000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_ODTCFG1
+*/
+  POKE32(0xfde500bc, 0x06060200)
+ENDIF(1)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+IF_EQ32(1, 0xfde20000, 0xf0000000, 0x00000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+  POKE32(0xfde50484, 0xbfd80002)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+ELSE(1)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+  POKE32(0xfde50484, 0xa5580002)
+ENDIF(1)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_POWCTL
+*/
+POKE32(0xfde50044, 0x00000001)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_POWSTAT
+*/
+WHILE_NE32(0xfde50048, 0x00000001, 0x00000001)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCFG
+*/
+POKE32(0xfde50080, 0x000a0061)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_PPCFG
+*/
+POKE32(0xfde50084, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_ODTCFG
+*/
+POKE32(0xfde5008c, 0x00000008)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_DQSECFG
+*/
+POKE32(0xfde50090, 0x00111111)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+IF_GT32(1, 0xfde20000, 0xf0000000, 0x00000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SLCR
+*/
+  POKE32(0xfde504ac, 0x00111100)
+ENDIF(1)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TREFI
+*/
+POKE32(0xfde500d0, 0x0000004e)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TMRD
+*/
+POKE32(0xfde500d4, 0x00000004)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRFC
+*/
+POKE32(0xfde500d8, 0x0000003b)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRP
+*/
+POKE32(0xfde500dc, 0x00000008)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRTW
+*/
+POKE32(0xfde500e0, 0x00000002)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TAL
+*/
+POKE32(0xfde500e4, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TCL
+*/
+POKE32(0xfde500e8, 0x00000008)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TCWL
+*/
+POKE32(0xfde500ec, 0x00000006)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRAS
+*/
+POKE32(0xfde500f0, 0x00000014)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRC
+*/
+POKE32(0xfde500f4, 0x0000001b)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRCD
+*/
+POKE32(0xfde500f8, 0x00000008)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRRD
+*/
+POKE32(0xfde500fc, 0x00000004)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRTP
+*/
+POKE32(0xfde50100, 0x00000004)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TWR
+*/
+POKE32(0xfde50104, 0x00000008)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TWTR
+*/
+POKE32(0xfde50108, 0x00000004)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TEXSR
+*/
+POKE32(0xfde5010c, 0x00000200)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TXP
+*/
+POKE32(0xfde50110, 0x00000004)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TXPDLL
+*/
+POKE32(0xfde50114, 0x0000000d)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TZQCS
+*/
+POKE32(0xfde50118, 0x00000040)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TZQCSI
+*/
+POKE32(0xfde5011c, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TDQS
+*/
+POKE32(0xfde50120, 0x00000003)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TCKSRE
+*/
+POKE32(0xfde50124, 0x00000006)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TCKSRX
+*/
+POKE32(0xfde50128, 0x00000006)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TCKE
+*/
+POKE32(0xfde5012c, 0x00000003)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TMOD
+*/
+POKE32(0xfde50130, 0x0000000c)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRSTL
+*/
+POKE32(0xfde50134, 0x0000007f)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TZQCL
+*/
+POKE32(0xfde50138, 0x00000200)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+POKE32(0xfde50040, 0x07100000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+OR32(0xfde50040, 0x80000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+WHILE_NE32(0xfde50040, 0x80000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+POKE32(0xfde50040, 0x00144083)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+OR32(0xfde50040, 0x80000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+WHILE_NE32(0xfde50040, 0x80000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+POKE32(0xfde50040, 0x00160003)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+OR32(0xfde50040, 0x80000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+WHILE_NE32(0xfde50040, 0x80000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+POKE32(0xfde50040, 0x00120003)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+OR32(0xfde50040, 0x80000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+WHILE_NE32(0xfde50040, 0x80000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+POKE32(0xfde50040, 0x00109403)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+OR32(0xfde50040, 0x80000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+WHILE_NE32(0xfde50040, 0x80000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+POKE32(0xfde50040, 0x00100005)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+OR32(0xfde50040, 0x80000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+WHILE_NE32(0xfde50040, 0x80000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_SCTL
+*/
+POKE32(0xfde50004, 0x00000001)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_STAT
+*/
+WHILE_NE32(0xfde50008, 0x00000007, 0x00000001)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+UPDATE32(0xfde50484, 0xfffffffd, 0x00000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+OR32(0xfde50484, 0x00020000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde50484, 0x00020000, 0x00020000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde50484, 0x00040000, 0x00040000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde50484, 0x00080000, 0x00080000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde50484, 0x00200000, 0x00200000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde50484, 0x00400000, 0x00400000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde50484, 0x01000000, 0x01000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde50484, 0x02000000, 0x02000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde50484, 0x08000000, 0x08000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde50484, 0x10000000, 0x10000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde50484, 0x40000000, 0x40000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_PHYPVTCFG
+*/
+POKE32(0xfde50300, 0x000045d0)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_PHYTUPDWAIT
+*/
+POKE32(0xfde50320, 0x00000003)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_PVTTUPDWAIT
+*/
+POKE32(0xfde50324, 0x00000003)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_SCTL
+*/
+POKE32(0xfde50004, 0x00000002)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_STAT
+*/
+WHILE_NE32(0xfde50008, 0x00000007, 0x00000003)
+
+
+/*
+stx7108_sysconf_0_regs.SYSTEM_CONFIG12
+*/
+UPDATE32(0xfde30028, 0xfffffffb, 0x00000000)
+DELAY(45000000)
+
+
+/*
+stx7108_sysconf_0_regs.SYSTEM_CONFIG12
+*/
+OR32(0xfde30028, 0x00000004)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+IF_EQ32(1, 0xfde20000, 0xf0000000, 0x00000000)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_CONFIG18
+*/
+  OR32(0xfde20084, 0x00000003)
+ENDIF(1)
+DELAY(4500000)
+
+
+/*
+st40_ddr3mixer_regs.DDR3MIXER_DDR_BASE_ADDR
+*/
+POKE32(0xfde72030, 0x00900080)
+
+
+/*
+st40_ddr3mixer_regs.DDR3MIXER_DDR_PARAMETER
+*/
+POKE32(0xfde72038, 0x23220e29)
+
+
+/*
+st40_ddr3mixer_regs.DDR3MIXER_GEN_PURPOSE_REG0
+*/
+POKE32(0xfde721c0, 0x104020ca)
+
+
+/*
+st40_ddr3mixer_regs.DDR3MIXER_GEN_CTRL
+*/
+POKE32(0xfde72000, 0x00080710)
+
+
+/*
+st40_ddr3mixer_regs.DDR3MIXER_HI_PRI_PORT_FLOW_REG1
+*/
+POKE32(0xfde720a0, 0x1f034040)
+
+
+/*
+st40_ddr3mixer_regs.DDR3MIXER_ROW_ADDR_MASK
+*/
+POKE32(0xfde72028, 0xfffffc00)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TOGCNT1U
+*/
+POKE32(0xfde700c0, 0x0000010a)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TINIT
+*/
+POKE32(0xfde700c4, 0x000000c8)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TOGCNT100N
+*/
+POKE32(0xfde700cc, 0x0000001a)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRSTH
+*/
+POKE32(0xfde700c8, 0x000001f4)
+DELAY(4500000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PGSR0
+*/
+WHILE_NE32(0xfde70410, 0x00000027, 0x00000027)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde70484, 0x00010000, 0x00010000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_DXCCR
+*/
+OR32(0xfde70434, 0x00000001)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_PHYIOCRV1
+*/
+POKE32(0xfde7031c, 0x00004301)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+IF_GT32(1, 0xfde20000, 0xf0000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_ODTCFG1
+*/
+  POKE32(0xfde700bc, 0x06060200)
+ENDIF(1)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+IF_EQ32(1, 0xfde20000, 0xf0000000, 0x00000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+  POKE32(0xfde70484, 0xbfd80002)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+ELSE(1)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+  POKE32(0xfde70484, 0xa5580002)
+ENDIF(1)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_POWCTL
+*/
+POKE32(0xfde70044, 0x00000001)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_POWSTAT
+*/
+WHILE_NE32(0xfde70048, 0x00000001, 0x00000001)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCFG
+*/
+POKE32(0xfde70080, 0x000a0061)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_PPCFG
+*/
+POKE32(0xfde70084, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_ODTCFG
+*/
+POKE32(0xfde7008c, 0x00000008)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_DQSECFG
+*/
+POKE32(0xfde70090, 0x00111111)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+IF_GT32(1, 0xfde20000, 0xf0000000, 0x00000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SLCR
+*/
+  POKE32(0xfde704ac, 0x00111100)
+ENDIF(1)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TREFI
+*/
+POKE32(0xfde700d0, 0x0000004e)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TMRD
+*/
+POKE32(0xfde700d4, 0x00000004)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRFC
+*/
+POKE32(0xfde700d8, 0x0000003b)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRP
+*/
+POKE32(0xfde700dc, 0x00000008)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRTW
+*/
+POKE32(0xfde700e0, 0x00000002)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TAL
+*/
+POKE32(0xfde700e4, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TCL
+*/
+POKE32(0xfde700e8, 0x00000008)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TCWL
+*/
+POKE32(0xfde700ec, 0x00000006)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRAS
+*/
+POKE32(0xfde700f0, 0x00000014)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRC
+*/
+POKE32(0xfde700f4, 0x0000001b)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRCD
+*/
+POKE32(0xfde700f8, 0x00000008)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRRD
+*/
+POKE32(0xfde700fc, 0x00000004)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRTP
+*/
+POKE32(0xfde70100, 0x00000004)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TWR
+*/
+POKE32(0xfde70104, 0x00000008)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TWTR
+*/
+POKE32(0xfde70108, 0x00000004)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TEXSR
+*/
+POKE32(0xfde7010c, 0x00000200)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TXP
+*/
+POKE32(0xfde70110, 0x00000004)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TXPDLL
+*/
+POKE32(0xfde70114, 0x0000000d)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TZQCS
+*/
+POKE32(0xfde70118, 0x00000040)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TZQCSI
+*/
+POKE32(0xfde7011c, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TDQS
+*/
+POKE32(0xfde70120, 0x00000003)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TCKSRE
+*/
+POKE32(0xfde70124, 0x00000006)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TCKSRX
+*/
+POKE32(0xfde70128, 0x00000006)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TCKE
+*/
+POKE32(0xfde7012c, 0x00000003)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TMOD
+*/
+POKE32(0xfde70130, 0x0000000c)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TRSTL
+*/
+POKE32(0xfde70134, 0x0000007f)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_TZQCL
+*/
+POKE32(0xfde70138, 0x00000200)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+POKE32(0xfde70040, 0x07100000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+OR32(0xfde70040, 0x80000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+WHILE_NE32(0xfde70040, 0x80000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+POKE32(0xfde70040, 0x00144083)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+OR32(0xfde70040, 0x80000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+WHILE_NE32(0xfde70040, 0x80000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+POKE32(0xfde70040, 0x00160003)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+OR32(0xfde70040, 0x80000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+WHILE_NE32(0xfde70040, 0x80000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+POKE32(0xfde70040, 0x00120003)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+OR32(0xfde70040, 0x80000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+WHILE_NE32(0xfde70040, 0x80000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+POKE32(0xfde70040, 0x00109403)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+OR32(0xfde70040, 0x80000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+WHILE_NE32(0xfde70040, 0x80000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+POKE32(0xfde70040, 0x00100005)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+OR32(0xfde70040, 0x80000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_MCMD
+*/
+WHILE_NE32(0xfde70040, 0x80000000, 0x00000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_SCTL
+*/
+POKE32(0xfde70004, 0x00000001)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_STAT
+*/
+WHILE_NE32(0xfde70008, 0x00000007, 0x00000001)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+UPDATE32(0xfde70484, 0xfffffffd, 0x00000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+OR32(0xfde70484, 0x00020000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde70484, 0x00020000, 0x00020000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde70484, 0x00040000, 0x00040000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde70484, 0x00080000, 0x00080000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde70484, 0x00200000, 0x00200000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde70484, 0x00400000, 0x00400000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde70484, 0x01000000, 0x01000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde70484, 0x02000000, 0x02000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde70484, 0x08000000, 0x08000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde70484, 0x10000000, 0x10000000)
+
+
+/*
+st40_ddr3phy_regs.DDR3PHY_PUB_SMCTL
+*/
+WHILE_NE32(0xfde70484, 0x40000000, 0x40000000)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_PHYPVTCFG
+*/
+POKE32(0xfde70300, 0x000045d0)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_PHYTUPDWAIT
+*/
+POKE32(0xfde70320, 0x00000003)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_PVTTUPDWAIT
+*/
+POKE32(0xfde70324, 0x00000003)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_SCTL
+*/
+POKE32(0xfde70004, 0x00000002)
+
+
+/*
+st40_ddr3pctl_regs.DDR3PCTL_STAT
+*/
+WHILE_NE32(0xfde70008, 0x00000007, 0x00000003)
+IF_EQ32(1, 0xfde20000, 0xf0000000, 0x00000000)
+  UPDATE32(0xfdea3a00, 0x00000000, 0x0a0d0b0c)
+  UPDATE32(0xfdea3a0c, 0x0000ffff, 0x0b0c0000)
+  UPDATE32(0xfdea3a10, 0xffff0000, 0x00000a0d)
+  UPDATE32(0xfd2e1004, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd2e1008, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd2e100c, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd2e1010, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd2e1014, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd2e1018, 0x0000ffff, 0x00060000)
+  UPDATE32(0xfd2e3004, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd2e3008, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd2e300c, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd2e3010, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd2e3014, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd2e3018, 0x0000ffff, 0x00060000)
+  UPDATE32(0xfd544010, 0xfc00ff00, 0x000600a3)
+  UPDATE32(0xfd5440b0, 0xfc00ff00, 0x000600a3)
+  UPDATE32(0xfe76b0fc, 0xfffffff8, 0x00000005)
+  UPDATE32(0xfd5450ec, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd5450f0, 0xfffffff8, 0x00000005)
+  UPDATE32(0xfd5450f4, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd5450f8, 0xfffffff8, 0x00000002)
+  UPDATE32(0xfd5450fc, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd5451ec, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd5451f0, 0xfffffff8, 0x00000005)
+  UPDATE32(0xfd5451f4, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd5451f8, 0xfffffff8, 0x00000002)
+  UPDATE32(0xfd5451fc, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd5452ec, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd5452f0, 0xfffffff8, 0x00000005)
+  UPDATE32(0xfd5452f4, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd5452f8, 0xfffffff8, 0x00000002)
+  UPDATE32(0xfd5452fc, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd5453ec, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd5453f0, 0xfffffff8, 0x00000005)
+  UPDATE32(0xfd5453f4, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd5453f8, 0xfffffff8, 0x00000002)
+  UPDATE32(0xfd5453fc, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd5454ec, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd5454f0, 0xfffffff8, 0x00000005)
+  UPDATE32(0xfd5454f4, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd5454f8, 0xfffffff8, 0x00000002)
+  UPDATE32(0xfd5454fc, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd545efc, 0xfffffff8, 0x00000005)
+  UPDATE32(0xfde00030, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfde00034, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfde00038, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfde0004c, 0xfffffc00, 0x00000000)
+  UPDATE32(0xfde00050, 0xfffffc00, 0x00000000)
+  UPDATE32(0xfde00108, 0x1fffffff, 0xa0000000)
+  UPDATE32(0xfde0010c, 0xfffffff8, 0x00000005)
+  UPDATE32(0xfde00110, 0xfff8f8f8, 0x00010202)
+  UPDATE32(0xfde00114, 0xfff8f8f8, 0x00000000)
+  UPDATE32(0xfde20044, 0xfffffffc, 0x00000000)
+  UPDATE32(0xfdabeb04, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfdabeb08, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfdabeb0c, 0x0000fff8, 0x00000000)
+  UPDATE32(0xfdabeb10, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfdabeb24, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfdabeb28, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfdabeb2c, 0x0000fff8, 0x00000000)
+  UPDATE32(0xfdabeb30, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfdabeb44, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfdabeb48, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfdabeb4c, 0x0000fff8, 0x00000000)
+  UPDATE32(0xfdabeb50, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfdabeb84, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfdabeb88, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfdabeb8c, 0x0000fff8, 0x00000000)
+  UPDATE32(0xfdabeb90, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd002024, 0xfff01fff, 0x0003c000)
+  UPDATE32(0xfd003024, 0xfff01fff, 0x0003c000)
+  UPDATE32(0xfd004024, 0xfff01fff, 0x0003c000)
+  IF_EQ32(2, 0xfe7000b8, 0x00000001, 0x00000000)
+    UPDATE32(0xfe0fff04, 0xffc00000, 0x00264006)
+  ENDIF(2)
+  IF_EQ32(2, 0xfe7000b8, 0x00000002, 0x00000000)
+    UPDATE32(0xfe1fff04, 0xffc00000, 0x00264006)
+  ENDIF(2)
+  IF_EQ32(2, 0xfe7000b8, 0x00000004, 0x00000000)
+    UPDATE32(0xfe2fff04, 0xffc00000, 0x00264006)
+  ENDIF(2)
+  IF_EQ32(2, 0xfda500d4, 0x00000001, 0x00000001)
+    UPDATE32(0xfda8f000, 0xffd00000, 0x00264006)
+    UPDATE32(0xfda89000, 0xfffec0ff, 0x00000800)
+  ENDIF(2)
+  IF_EQ32(2, 0xfe70010c, 0x00000001, 0x00000001)
+    UPDATE32(0xfe737000, 0xffd00000, 0x00264006)
+    UPDATE32(0xfe731000, 0xfffec0ff, 0x00000800)
+  ENDIF(2)
+  IF_EQ32(2, 0xfda50078, 0x00000004, 0x00000000)
+    UPDATE32(0xfdaa9744, 0xffd00000, 0x00264006)
+  ENDIF(2)
+  UPDATE32(0xfe768000, 0xffffffe8, 0x00000004)
+  UPDATE32(0xfe768004, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfe768008, 0xfffffff0, 0x00000001)
+  IF_EQ32(2, 0xfe7000b8, 0x00000010, 0x00000000)
+    UPDATE32(0xfe769000, 0xffffffe8, 0x00000004)
+    UPDATE32(0xfe769004, 0xfffffff0, 0x00000001)
+    UPDATE32(0xfe769008, 0xfffffff0, 0x00000001)
+  ENDIF(2)
+  UPDATE32(0xfd62a000, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd62a004, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd62a008, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd62a00c, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd62a010, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd628000, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd628004, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd628008, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd62800c, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd628010, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd6aa000, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd6aa004, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd6aa008, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd6aa00c, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd6aa010, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd6a8000, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd6a8004, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd6a8008, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd6a800c, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd6a8010, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfda40c18, 0xfffffff0, 0x00000002)
+  UPDATE32(0xfde52048, 0x00000000, 0x40404040)
+  UPDATE32(0xfde72048, 0x00000000, 0x40404040)
+ELSE(1)
+  UPDATE32(0xfdea3a00, 0x00000000, 0x0a0d0b0c)
+  UPDATE32(0xfdea3a10, 0x00000000, 0x0a0d0b0c)
+  UPDATE32(0xfd2e1004, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd2e1008, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd2e100c, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd2e1010, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd2e1014, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd2e1018, 0x0000ffff, 0x00060000)
+  UPDATE32(0xfd2e3004, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd2e3008, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd2e300c, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd2e3010, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd2e3014, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd2e3018, 0x0000ffff, 0x00060000)
+  UPDATE32(0xfd544010, 0xfc00ff00, 0x000600a3)
+  UPDATE32(0xfd5440b0, 0xfc00ff00, 0x000600a3)
+  UPDATE32(0xfe76b0fc, 0xfffffff8, 0x00000005)
+  UPDATE32(0xfd5450ec, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd5450f0, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd5450f4, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd5450f8, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd5450fc, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd5451ec, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd5451f0, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd5451f4, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd5451f8, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd5451fc, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd5452ec, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd5452f0, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd5452f4, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd5452f8, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd5452fc, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd5453ec, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd5453f0, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd5453f4, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd5453f8, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd5453fc, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd5454ec, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd5454f0, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd5454f4, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd5454f8, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd5454fc, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd545efc, 0xfffffff8, 0x00000005)
+  UPDATE32(0xfde00030, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfde00034, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfde00038, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfde0004c, 0xfffffc00, 0x00000000)
+  UPDATE32(0xfde00050, 0xfffffc00, 0x00000000)
+  UPDATE32(0xfde00108, 0x1fffffff, 0xa0000000)
+  UPDATE32(0xfde0010c, 0xfffffff8, 0x00000005)
+  UPDATE32(0xfde00110, 0xfff8f8f8, 0x00010202)
+  UPDATE32(0xfde00114, 0xfff8f8f8, 0x00000000)
+  UPDATE32(0xfde20044, 0xfffffffc, 0x00000000)
+  UPDATE32(0xfdabeb04, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfdabeb08, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfdabeb0c, 0x0000fff8, 0x00000000)
+  UPDATE32(0xfdabeb10, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfdabeb24, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfdabeb28, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfdabeb2c, 0x0000fff8, 0x00000000)
+  UPDATE32(0xfdabeb30, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfdabeb44, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfdabeb48, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfdabeb4c, 0x0000fff8, 0x00000000)
+  UPDATE32(0xfdabeb50, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfdabeb84, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfdabeb88, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfdabeb8c, 0x0000fff8, 0x00000000)
+  UPDATE32(0xfdabeb90, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd002024, 0xfff01fff, 0x0003c000)
+  UPDATE32(0xfd003024, 0xfff01fff, 0x0003c000)
+  UPDATE32(0xfd004024, 0xfff01fff, 0x0003c000)
+  IF_EQ32(2, 0xfe7000b8, 0x00000001, 0x00000000)
+    UPDATE32(0xfe0fff04, 0xffc00000, 0x00264207)
+  ENDIF(2)
+  IF_EQ32(2, 0xfe7000b8, 0x00000002, 0x00000000)
+    UPDATE32(0xfe1fff04, 0xffc00000, 0x00264207)
+  ENDIF(2)
+  IF_EQ32(2, 0xfe7000b8, 0x00000004, 0x00000000)
+    UPDATE32(0xfe2fff04, 0xffc00000, 0x00264207)
+  ENDIF(2)
+  IF_EQ32(2, 0xfda500d4, 0x00000001, 0x00000001)
+    UPDATE32(0xfda8f000, 0xffd00000, 0x00264207)
+    UPDATE32(0xfda89000, 0xfffec0ff, 0x00000800)
+  ENDIF(2)
+  IF_EQ32(2, 0xfe70010c, 0x00000001, 0x00000001)
+    UPDATE32(0xfe737000, 0xffd00000, 0x00264207)
+    UPDATE32(0xfe731000, 0xfffec0ff, 0x00000800)
+  ENDIF(2)
+  IF_EQ32(2, 0xfda50078, 0x00000004, 0x00000000)
+    UPDATE32(0xfdaa9744, 0xffd00000, 0x00264207)
+  ENDIF(2)
+  IF_EQ32(2, 0xfe700110, 0x00000002, 0x00000000)
+    UPDATE32(0xfe772348, 0xffd00000, 0x00264207)
+  ENDIF(2)
+  UPDATE32(0xfe768000, 0xffffffe8, 0x00000004)
+  UPDATE32(0xfe768004, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfe768008, 0xfffffff0, 0x00000001)
+  IF_EQ32(2, 0xfe700110, 0x00000002, 0x00000002)
+    UPDATE32(0xfe769000, 0xffffffe8, 0x00000004)
+    UPDATE32(0xfe769004, 0xfffffff0, 0x00000001)
+    UPDATE32(0xfe769008, 0xfffffff0, 0x00000001)
+  ENDIF(2)
+  UPDATE32(0xfd62a000, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd62a004, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd62a008, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd62a00c, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd62a010, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd628000, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd628004, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd628008, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd62800c, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd628010, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd6aa000, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd6aa004, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd6aa008, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd6aa00c, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd6aa010, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfd6a8000, 0xfffffff0, 0x00000001)
+  UPDATE32(0xfd6a8004, 0xfffffff8, 0x00000006)
+  UPDATE32(0xfd6a8008, 0xfffffff8, 0x00000003)
+  UPDATE32(0xfd6a800c, 0xfffffff8, 0x00000001)
+  UPDATE32(0xfd6a8010, 0xfffffff8, 0x00000000)
+  UPDATE32(0xfda40c18, 0xfffffff0, 0x00000002)
+  UPDATE32(0xfde52048, 0x00000000, 0x40404040)
+  UPDATE32(0xfde72048, 0x00000000, 0x40404040)
+ENDIF(1)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+IF_EQ32(1, 0xfde20000, 0xf0000000, 0x00000000)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_CONFIG1
+*/
+  UPDATE32(0xfde20040, 0xffffc0ff, 0x00001000)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_CONFIG0
+*/
+  OR32(0xfde2003c, 0x00000002)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_STATUS0
+*/
+ELSE(1)
+
+
+/*
+stx7108_sysconf_1_regs.SYSTEM_CONFIG0
+*/
+  OR32(0xfde2003c, 0x00010000)
+ENDIF(1)
+
+
+#if 0		/* added by Sean McGoogan <Sean.McGoogan@st.com> */
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY0
+*/
+POKE32(0xf7100000, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY0
+*/
+POKE32(0xf6100000, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY1
+*/
+POKE32(0xf7100100, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY1
+*/
+POKE32(0xf6100100, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY2
+*/
+POKE32(0xf7100200, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY2
+*/
+POKE32(0xf6100200, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY3
+*/
+POKE32(0xf7100300, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY3
+*/
+POKE32(0xf6100300, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY4
+*/
+POKE32(0xf7100400, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY4
+*/
+POKE32(0xf6100400, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY5
+*/
+POKE32(0xf7100500, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY5
+*/
+POKE32(0xf6100500, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY6
+*/
+POKE32(0xf7100600, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY6
+*/
+POKE32(0xf6100600, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY7
+*/
+POKE32(0xf7100700, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY7
+*/
+POKE32(0xf6100700, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY8
+*/
+POKE32(0xf7100800, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY8
+*/
+POKE32(0xf6100800, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY9
+*/
+POKE32(0xf7100900, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY9
+*/
+POKE32(0xf6100900, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY10
+*/
+POKE32(0xf7100a00, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY10
+*/
+POKE32(0xf6100a00, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY11
+*/
+POKE32(0xf7100b00, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY11
+*/
+POKE32(0xf6100b00, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY12
+*/
+POKE32(0xf7100c00, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY12
+*/
+POKE32(0xf6100c00, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY13
+*/
+POKE32(0xf7100d00, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY13
+*/
+POKE32(0xf6100d00, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY14
+*/
+POKE32(0xf7100e00, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY14
+*/
+POKE32(0xf6100e00, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY15
+*/
+POKE32(0xf7100f00, 0x00000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY15
+*/
+POKE32(0xf6100f00, 0x80000000)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY0
+*/
+POKE32(0xf6100000, 0x80000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY0
+*/
+POKE32(0xf7100000, 0x40000188)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY1
+*/
+POKE32(0xf6100100, 0x88000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY1
+*/
+POKE32(0xf7100100, 0x48000188)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY2
+*/
+POKE32(0xf6100200, 0xa0000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY2
+*/
+POKE32(0xf7100200, 0x80000188)
+
+
+/*
+st40_pmb_addr_array_regs.PMB_ADDR_ARRAY_ENTRY3
+*/
+POKE32(0xf6100300, 0xa8000000)
+
+
+/*
+st40_pmb_data_array_regs.PMB_DATA_ARRAY_ENTRY3
+*/
+POKE32(0xf7100300, 0x88000188)
+
+
+/*
+st40_ccn_regs.CCN_MMUCR
+*/
+OR32(0xff000010, 0x00000010)
+
+
+/*
+st40_ccn_regs.CCN_MMUCR
+*/
+IF_EQ32(1, 0xff000010, 0x00000010, 0x00000010)
+
+
+/*
+st40_ccn_regs.CCN_MMUCR
+*/
+  UPDATE32(0xff000010, 0xffffffef, 0x00000010)
+
+
+/*
+st40_ccn_regs.CCN_MMUCR
+*/
+ELSE(1)
+
+
+/*
+st40_ccn_regs.CCN_PASCR
+*/
+  UPDATE32(0xff000070, 0x7fffffff, 0x80000000)
+ENDIF(1)
+#endif	/* added by Sean McGoogan <Sean.McGoogan@st.com> */

@@ -1,0 +1,5 @@
+#!/bin/sh
+samba_cv_zlib_1_2_3=no ac_cv_file__proc_sys_kernel_core_pattern=no libreplace_cv_HAVE_GETADDRINFO=no libreplace_cv_HAVE_GETADDRINFO=yes samba_cv_CC_NEGATIVE_ENUM_VALUES=yes CFLAGS="-Os -DREDUCE_SIZE_DISABLE_DEBUG -DREDUCE_SIZE_DISABLE_TDB_LOG -DREDUCE_SIZE_REMOVE_NICE_ERRORS -DREDUCE_SIZE_DISABLE_REGISTRY -DREDUCE_SIZE_DISABLE_SHARESEC -DREDUCE_SIZE_DISABLE_NTTOKEN -DREDUCE_SIZE_DISABLE_CRYPTO -DREDUCE_SIZE_DISABLE_MESSAGE -DREDUCE_SIZE_DISABLE_PACKET -DREDUCE_SIZE_DISABLE_MEMCACHE -DREDUCE_SIZE_DISABLE_PASSDB -DREDUCE_SIZE_DISABLE_WBC" ./configure --host=sh4-linux --enable-nss-wrapper --disable-largefile --disable-swat --disable-cups --disable-iprint --disable-pie --disable-fam --without-ldap --without-utmp --without-ads --without-krb5 --without-sendfile-support --disable-debug --disable-developer --disable-krb5developer --without-winbind samba_cv_have_setresgid=cross samba_cv_have_setresuid=cross
+
+# add build target
+#echo netbeam:: SHOWFLAGS basics libtalloc libtdb libwbclient libaddns libsmbclient bin/mount.cifs bin/umount.cifs >> Makefile
