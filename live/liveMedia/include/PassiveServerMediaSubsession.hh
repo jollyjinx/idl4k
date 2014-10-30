@@ -45,6 +45,7 @@ protected:
 
 protected: // redefined virtual functions
   virtual char const* sdpLines(bool setControl = false);
+  virtual void refreshRTPSink(unsigned clientSessionId) {}
   virtual void getStreamParameters(unsigned clientSessionId,
 				   netAddressBits clientAddress,
                                    Port const& clientRTPPort,

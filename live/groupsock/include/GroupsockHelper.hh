@@ -24,6 +24,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 #ifndef _NET_ADDRESS_HH
 #include "NetAddress.hh"
 #endif
+int clock_gettime(struct timespec* ts);
 
 int setupDatagramSocket(UsageEnvironment& env, Port port);
 int setupStreamSocket(UsageEnvironment& env,

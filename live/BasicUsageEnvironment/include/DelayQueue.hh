@@ -34,16 +34,16 @@ typedef long time_base_seconds;
 
 class Timeval {
 public:
-  time_base_seconds seconds() const {
+  virtual time_base_seconds seconds() const {
     return fTv.tv_sec;
   }
-  time_base_seconds seconds() {
+  virtual time_base_seconds seconds() {
     return fTv.tv_sec;
   }
-  time_base_seconds useconds() const {
+  virtual time_base_seconds useconds() const {
     return fTv.tv_usec;
   }
-  time_base_seconds useconds() {
+  virtual time_base_seconds useconds() {
     return fTv.tv_usec;
   }
 
@@ -64,8 +64,8 @@ public:
     return !(*this == arg2);
   }
 
-  void operator+=(class DelayInterval const& arg2);
-  void operator-=(class DelayInterval const& arg2);
+  virtual void operator+=(class DelayInterval const& arg2);
+  virtual void operator-=(class DelayInterval const& arg2);
   // returns ZERO iff arg2 >= arg1
 
 protected:
@@ -98,22 +98,78 @@ inline Timeval min(Timeval const& arg1, Timeval const& arg2) {
 class DelayInterval operator-(Timeval const& arg1, Timeval const& arg2);
 // returns ZERO iff arg2 >= arg1
 
+///// A "Timespec" can be either an absolute time, or a time interval /////
+
+class Timespec : public Timeval {
+public:
+  virtual time_base_seconds seconds() const {
+    return fTs.tv_sec;
+  }
+  virtual time_base_seconds seconds() {
+    return fTs.tv_sec;
+  }
+  virtual time_base_seconds useconds() const {
+    return fTs.tv_nsec/1000L;
+  }
+  virtual time_base_seconds useconds() {
+    return fTs.tv_nsec/1000L;
+  }
+  virtual time_base_seconds nseconds() const {
+    return fTs.tv_nsec;
+  }
+  virtual time_base_seconds nseconds() {
+    return fTs.tv_nsec;
+  }
+
+  int operator>=(Timespec const& arg2) const;
+  int operator<=(Timespec const& arg2) const {
+    return arg2 >= *this;
+  }
+  int operator<(Timespec const& arg2) const {
+    return !(*this >= arg2);
+  }
+  int operator>(Timespec const& arg2) const {
+    return arg2 < *this;
+  }
+  int operator==(Timespec const& arg2) const {
+    return *this >= arg2 && arg2 >= *this;
+  }
+  int operator!=(Timespec const& arg2) const {
+    return !(*this == arg2);
+  }
+
+  virtual void operator+=(class DelayInterval const& arg2);
+  virtual void operator-=(class DelayInterval const& arg2);
+
+protected:
+  Timespec(time_base_seconds seconds, time_base_seconds nseconds)
+  : Timeval(seconds, nseconds/1000L) {
+    fTs.tv_sec = seconds; fTs.tv_nsec = nseconds;
+  }
+
+private:
+  time_base_seconds& secs() {
+    return (time_base_seconds&)fTs.tv_sec;
+  }
+  time_base_seconds& nsecs() {
+    return (time_base_seconds&)fTs.tv_nsec;
+  }
+
+  struct timespec fTs;
+};
 
 ///// DelayInterval /////
 
-class DelayInterval: public Timeval {
+class DelayInterval: public Timespec {
 public:
   DelayInterval(time_base_seconds seconds, time_base_seconds useconds)
-    : Timeval(seconds, useconds) {}
+    : Timespec(seconds, useconds*1000L) {}
 };
 
 DelayInterval operator*(short arg1, DelayInterval const& arg2);
 
 extern DelayInterval const DELAY_ZERO;
 extern DelayInterval const DELAY_SECOND;
-DelayInterval const DELAY_MINUTE = 60*DELAY_SECOND;
-DelayInterval const DELAY_HOUR = 60*DELAY_MINUTE;
-DelayInterval const DELAY_DAY = 24*DELAY_HOUR;
 
 ///// EventTime /////
 
@@ -125,10 +181,18 @@ public:
     : Timeval(secondsSinceEpoch, usecondsSinceEpoch) {}
 };
 
-EventTime TimeNow();
+///// EventTimeMonotonic /////
 
-extern EventTime const THE_END_OF_TIME;
+class EventTimeMonotonic : public Timespec {
+public:
+  EventTimeMonotonic(unsigned secondsSinceStart = 0,
+	    unsigned nsecondsSinceStart = 0)
+  : Timespec(secondsSinceStart, nsecondsSinceStart) {}
+};
 
+EventTimeMonotonic TimeNow();
+
+extern EventTimeMonotonic const THE_END_OF_TIME;
 
 ///// DelayQueueEntry /////
 
@@ -176,7 +240,7 @@ private:
   DelayQueueEntry* findEntryByToken(intptr_t token);
   void synchronize(); // bring the 'time remaining' fields up-to-date
 
-  EventTime fLastSyncTime;
+  EventTimeMonotonic fLastSyncTime;
 };
 
 #endif

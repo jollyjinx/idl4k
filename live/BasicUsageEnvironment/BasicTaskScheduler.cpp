@@ -52,6 +52,9 @@ BasicTaskScheduler::~BasicTaskScheduler() {
 #ifndef MILLION
 #define MILLION 1000000
 #endif
+#ifndef BILLION
+#define BILLION MILLION*1000L
+#endif
 
 void BasicTaskScheduler::SingleStep(unsigned maxDelayTime) {
   fd_set readSet = fReadSet; // make a copy for this select() call
@@ -59,25 +62,25 @@ void BasicTaskScheduler::SingleStep(unsigned maxDelayTime) {
   fd_set exceptionSet = fExceptionSet; // ditto
 
   DelayInterval const& timeToDelay = fDelayQueue.timeToNextAlarm();
-  struct timeval tv_timeToDelay;
-  tv_timeToDelay.tv_sec = timeToDelay.seconds();
-  tv_timeToDelay.tv_usec = timeToDelay.useconds();
+  struct timespec ts_timeToDelay;
+  ts_timeToDelay.tv_sec = timeToDelay.seconds();
+  ts_timeToDelay.tv_nsec = timeToDelay.nseconds();
   // Very large "tv_sec" values cause select() to fail.
   // Don't make it any larger than 1 million seconds (11.5 days)
   const long MAX_TV_SEC = MILLION;
-  if (tv_timeToDelay.tv_sec > MAX_TV_SEC) {
-    tv_timeToDelay.tv_sec = MAX_TV_SEC;
+  if (ts_timeToDelay.tv_sec > MAX_TV_SEC) {
+    ts_timeToDelay.tv_sec = MAX_TV_SEC;
   }
   // Also check our "maxDelayTime" parameter (if it's > 0):
   if (maxDelayTime > 0 &&
-      (tv_timeToDelay.tv_sec > (long)maxDelayTime/MILLION ||
-       (tv_timeToDelay.tv_sec == (long)maxDelayTime/MILLION &&
-	tv_timeToDelay.tv_usec > (long)maxDelayTime%MILLION))) {
-    tv_timeToDelay.tv_sec = maxDelayTime/MILLION;
-    tv_timeToDelay.tv_usec = maxDelayTime%MILLION;
+      (ts_timeToDelay.tv_sec > (long)maxDelayTime/MILLION ||
+       (ts_timeToDelay.tv_sec == (long)maxDelayTime/MILLION &&
+	ts_timeToDelay.tv_nsec > (long)maxDelayTime%BILLION))) {
+    ts_timeToDelay.tv_sec = maxDelayTime/MILLION;
+    ts_timeToDelay.tv_nsec = maxDelayTime%BILLION;
   }
 
-  int selectResult = select(fMaxNumSockets, &readSet, &writeSet, &exceptionSet, &tv_timeToDelay);
+  int selectResult = pselect(fMaxNumSockets, &readSet, &writeSet, &exceptionSet, &ts_timeToDelay, NULL);
   if (selectResult < 0) {
 #if defined(__WIN32__) || defined(_WIN32)
     int err = WSAGetLastError();

@@ -1,5 +1,5 @@
 CROSS_COMPILER     = sh4-linux-
-COMPILE_OPTS       = $(INCLUDES) -I. -DSOCKLEN_T=socklen_t -D_LARGEFILE_SOURCE=1 -DUCLINUX -D_FILE_OFFSET_BITS=64 -g -O0
+COMPILE_OPTS       = $(INCLUDES) -I. -DSOCKLEN_T=socklen_t -D_LARGEFILE_SOURCE=1 -DUCLINUX -D_FILE_OFFSET_BITS=64 -O2
 C                  = c
 C_COMPILER         = $(CROSS_COMPILER)gcc
 C_FLAGS            = $(COMPILE_OPTS) -Wall
@@ -8,7 +8,7 @@ CPLUSPLUS_COMPILER = $(CROSS_COMPILER)g++
 CPLUSPLUS_FLAGS    = $(COMPILE_OPTS) -Wall
 OBJ                = o
 LINK               = $(CROSS_COMPILER)g++ -o
-LINK_OPTS          = -L.
+LINK_OPTS          = -L. -lrt
 CONSOLE_LINK_OPTS  = $(LINK_OPTS)
 LIBRARY_LINK       = $(CROSS_COMPILER)ar cr 
 LIBRARY_LINK_OPTS  = 

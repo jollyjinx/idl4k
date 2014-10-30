@@ -136,6 +136,7 @@ public:
   unsigned trackNumber() const { return fTrackNumber; }
   virtual char const* trackId();
   virtual char const* sdpLines(bool setControl = false) = 0;
+  virtual void refreshRTPSink(unsigned clientSessionId) = 0;
   virtual void getStreamParameters(unsigned clientSessionId, // in
 				   netAddressBits clientAddress, // in
 				   Port const& clientRTPPort, // in

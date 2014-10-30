@@ -219,6 +219,13 @@ void OnDemandServerMediaSubsession::pauseStream(unsigned clientSessionId,
   }
 }
 
+void OnDemandServerMediaSubsession::refreshRTPSink(unsigned clientSessionId)
+{
+  pauseStream(clientSessionId, fLastStreamToken);
+  StreamState* streamState = (StreamState*)fLastStreamToken;
+  streamState->renewSink();
+}
+
 void OnDemandServerMediaSubsession::seekStream(unsigned /*clientSessionId*/,
 					       void* streamToken, double& seekNPT, double streamDuration, u_int64_t& numBytes) {
   numBytes = 0; // by default: unknown
@@ -456,6 +463,15 @@ void StreamState::pause() {
   if (fRTPSink != NULL) fRTPSink->stopPlaying();
   if (fUDPSink != NULL) fUDPSink->stopPlaying();
   fAreCurrentlyPlaying = False;
+}
+
+void StreamState::renewSink()
+{
+  if (fRTPSink) {
+    Medium::close(fRTPSink); fRTPSink = NULL;
+  }
+  unsigned char rtpPayloadType = 96 + fMaster.trackNumber()-1; // if dynamic
+  fRTPSink = fMaster.createNewRTPSink(fRTPgs, rtpPayloadType, fMediaSource);
 }
 
 void StreamState::endPlaying(Destinations* dests, bool igmpReq /* = false */, bool ownerSession /* = true */) {

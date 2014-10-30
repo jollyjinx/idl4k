@@ -65,6 +65,7 @@ protected: // redefined virtual functions
                            void* serverRequestAlternativeByteHandlerClientData,
                            bool igmpReq = false);
   virtual void pauseStream(unsigned clientSessionId, void* streamToken, bool igmpReq = false);
+  virtual void refreshRTPSink(unsigned clientSessionId);
   virtual void seekStream(unsigned clientSessionId, void* streamToken, double& seekNPT, double streamDuration, u_int64_t& numBytes);
   virtual void setStreamScale(unsigned clientSessionId, void* streamToken, float scale);
   virtual FramedSource* getStreamSource(void* streamToken);
@@ -154,6 +155,7 @@ public:
                     bool igmpReq = false,
                     bool ownerSession = true);
   void pause();
+  void renewSink();
   void endPlaying(Destinations* destinations, bool igmpReq = false, bool ownerSession = true);
   void reclaim();
 

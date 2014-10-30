@@ -39,11 +39,12 @@ MultiFramedRTPSink::MultiFramedRTPSink(UsageEnvironment& env,
 				       unsigned char rtpPayloadType,
 				       unsigned rtpTimestampFrequency,
 				       char const* rtpPayloadFormatName,
-				       unsigned numChannels)
+							 unsigned numChannels,
+							 Boolean plainUdpTs )
   : RTPSink(env, rtpGS, rtpPayloadType, rtpTimestampFrequency,
 	    rtpPayloadFormatName, numChannels),
     fOutBuf(NULL), fCurFragmentationOffset(0), fPreviousFrameEndedFragmentation(False),
-    fOnSendErrorFunc(NULL), fOnSendErrorData(NULL) {
+    fOnSendErrorFunc(NULL), fOnSendErrorData(NULL), fPlainUdpTs(plainUdpTs) {
   setPacketSizes(1000, 1448);
       // Default max packet size (1500, minus allowance for IP, UDP, UMTP headers)
       // (Also, make it a multiple of 4 bytes, just in case that matters.)
@@ -98,37 +99,54 @@ unsigned MultiFramedRTPSink::computeOverflowForNewFrame(unsigned newFrameSize) c
 void MultiFramedRTPSink::setMarkerBit() {
   unsigned rtpHdr = fOutBuf->extractWord(0);
   rtpHdr |= 0x00800000;
-  fOutBuf->insertWord(rtpHdr, 0);
+  if( !fPlainUdpTs )
+  {
+    fOutBuf->insertWord(rtpHdr, 0);
+  }
 }
 
 void MultiFramedRTPSink::setTimestamp(struct timeval framePresentationTime) {
   // First, convert the presentatoin time to a 32-bit RTP timestamp:
   fCurrentTimestamp = convertToRTPTimestamp(framePresentationTime);
-
-  // Then, insert it into the RTP packet:
-  fOutBuf->insertWord(fCurrentTimestamp, fTimestampPosition);
+  if( !fPlainUdpTs )
+  {
+    // Then, insert it into the RTP packet:
+    fOutBuf->insertWord(fCurrentTimestamp, fTimestampPosition);
+  }
 }
 
 void MultiFramedRTPSink::setSpecialHeaderWord(unsigned word,
 					      unsigned wordPosition) {
-  fOutBuf->insertWord(word, fSpecialHeaderPosition + 4*wordPosition);
+	if( !fPlainUdpTs )
+	{
+		fOutBuf->insertWord(word, fSpecialHeaderPosition + 4*wordPosition);
+	}
 }
 
 void MultiFramedRTPSink::setSpecialHeaderBytes(unsigned char const* bytes,
 					       unsigned numBytes,
 					       unsigned bytePosition) {
-  fOutBuf->insert(bytes, numBytes, fSpecialHeaderPosition + bytePosition);
+	if( !fPlainUdpTs )
+	{
+		fOutBuf->insert(bytes, numBytes, fSpecialHeaderPosition + bytePosition);
+	}
 }
 
 void MultiFramedRTPSink::setFrameSpecificHeaderWord(unsigned word,
 						    unsigned wordPosition) {
-  fOutBuf->insertWord(word, fCurFrameSpecificHeaderPosition + 4*wordPosition);
+	if( !fPlainUdpTs )
+	{
+		fOutBuf->insertWord(word, fCurFrameSpecificHeaderPosition + 4*wordPosition);
+	}
 }
 
 void MultiFramedRTPSink::setFrameSpecificHeaderBytes(unsigned char const* bytes,
 						     unsigned numBytes,
 						     unsigned bytePosition) {
-  fOutBuf->insert(bytes, numBytes, fCurFrameSpecificHeaderPosition + bytePosition);
+	if( !fPlainUdpTs )
+	{
+		fOutBuf->insert(bytes, numBytes, fCurFrameSpecificHeaderPosition + bytePosition);
+	}
 }
 
 void MultiFramedRTPSink::setFramePadding(unsigned numPaddingBytes) {
@@ -142,6 +160,7 @@ void MultiFramedRTPSink::setFramePadding(unsigned numPaddingBytes) {
     // Set the RTP padding bit:
     unsigned rtpHdr = fOutBuf->extractWord(0);
     rtpHdr |= 0x20000000;
+
     fOutBuf->insertWord(rtpHdr, 0);
   }
 }
@@ -169,21 +188,27 @@ void MultiFramedRTPSink::buildAndSendPacket(Boolean isFirstPacket) {
   unsigned rtpHdr = 0x80000000; // RTP version 2; marker ('M') bit not set (by default; it can be set later)
   rtpHdr |= (fRTPPayloadType<<16);
   rtpHdr |= fSeqNo; // sequence number
-  fOutBuf->enqueueWord(rtpHdr);
 
+  if( !fPlainUdpTs )
+  {
+    fOutBuf->enqueueWord(rtpHdr);
+  }
   // Note where the RTP timestamp will go.
   // (We can't fill this in until we start packing payload frames.)
   fTimestampPosition = fOutBuf->curPacketSize();
-  fOutBuf->skipBytes(4); // leave a hole for the timestamp
-
-  fOutBuf->enqueueWord(SSRC());
-
+  if( !fPlainUdpTs )
+  {
+    fOutBuf->skipBytes(4); // leave a hole for the timestamp
+    fOutBuf->enqueueWord(SSRC());
+  }
   // Allow for a special, payload-format-specific header following the
   // RTP header:
   fSpecialHeaderPosition = fOutBuf->curPacketSize();
   fSpecialHeaderSize = specialHeaderSize();
-  fOutBuf->skipBytes(fSpecialHeaderSize);
-
+  if( !fPlainUdpTs )
+  {
+    fOutBuf->skipBytes(fSpecialHeaderSize);
+  }
   // Begin packing as many (complete) frames into the packet as we can:
   fTotalFrameSpecificHeaderSizes = 0;
   fNoFramesLeft = False;
@@ -209,7 +234,10 @@ void MultiFramedRTPSink::packFrame() {
 
     fCurFrameSpecificHeaderPosition = fOutBuf->curPacketSize();
     fCurFrameSpecificHeaderSize = frameSpecificHeaderSize();
-    fOutBuf->skipBytes(fCurFrameSpecificHeaderSize);
+    if( !fPlainUdpTs )
+    {
+      fOutBuf->skipBytes(fCurFrameSpecificHeaderSize);
+    }
     fTotalFrameSpecificHeaderSizes += fCurFrameSpecificHeaderSize;
 
     fSource->getNextFrame(fOutBuf->curPtr(), fOutBuf->totalBytesAvailable(),

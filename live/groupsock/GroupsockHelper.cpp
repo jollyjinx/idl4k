@@ -53,6 +53,13 @@ NoReuse::~NoReuse() {
   reuseFlag = 1;
 }
 
+
+int clock_gettime(struct timespec* ts)
+{
+  clock_gettime(CLOCK_MONOTONIC, ts);
+}
+
+
 static int createSocket(int type) {
   // Call "socket()" to create a (IPv4) socket of the specified type.
   // But also set it to have the 'close on exec' property (if we can)
@@ -731,4 +738,5 @@ int gettimeofday(struct timeval* tp, int* /*tz*/) {
 #endif
   return 0;
 }
+
 #endif

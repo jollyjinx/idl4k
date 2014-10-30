@@ -42,7 +42,8 @@ protected:
 		     Groupsock* rtpgs, unsigned char rtpPayloadType,
 		     unsigned rtpTimestampFrequency,
 		     char const* rtpPayloadFormatName,
-		     unsigned numChannels = 1);
+				 unsigned numChannels = 1,
+				 Boolean plainUdpTs = False);
 	// we're a virtual base class
 
   virtual ~MultiFramedRTPSink();
@@ -135,6 +136,7 @@ private:
 
   onSendErrorFunc* fOnSendErrorFunc;
   void* fOnSendErrorData;
+  Boolean fPlainUdpTs;
 };
 
 #endif

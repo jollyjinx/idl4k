@@ -94,7 +94,8 @@ protected:
 	  Groupsock* rtpGS, unsigned char rtpPayloadType,
 	  u_int32_t rtpTimestampFrequency,
 	  char const* rtpPayloadFormatName,
-	  unsigned numChannels);
+		unsigned numChannels,
+		Boolean plainUdpTs = False);
 	// abstract base class
 
   virtual ~RTPSink();
@@ -119,6 +120,7 @@ private:
   struct timeval fCreationTime;
 
   RTPTransmissionStatsDB* fTransmissionStatsDB;
+  Boolean fPlainUdpTs;
 };
 
 

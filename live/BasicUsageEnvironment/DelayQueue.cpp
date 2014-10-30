@@ -22,6 +22,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 #include "GroupsockHelper.hh"
 
 static const int MILLION = 1000000;
+static const long BILLION = MILLION * 1000L;
 
 ///// Timeval /////
 
@@ -64,28 +65,57 @@ DelayInterval operator-(const Timeval& arg1, const Timeval& arg2) {
     return DelayInterval(secs, usecs);
 }
 
+///// Timespec /////
+
+int Timespec::operator>=(const Timespec& arg2) const {
+  return seconds() > arg2.seconds()
+    || (seconds() == arg2.seconds()
+	&& nseconds() >= arg2.nseconds());
+}
+
+void Timespec::operator+=(const DelayInterval& arg2) {
+  secs() += arg2.seconds(); nsecs() += arg2.nseconds();
+  if (nseconds() >= BILLION) {
+    nsecs() -= BILLION;
+    ++secs();
+  }
+}
+
+void Timespec::operator-=(const DelayInterval& arg2) {
+  secs() -= arg2.seconds(); nsecs() -= arg2.nseconds();
+  if ((int)nseconds() < 0) {
+    nsecs() += BILLION;
+    --secs();
+  }
+  if ((int)seconds() < 0)
+    secs() = nsecs() = 0;
+
+}
 
 ///// DelayInterval /////
 
 DelayInterval operator*(short arg1, const DelayInterval& arg2) {
   time_base_seconds result_seconds = arg1*arg2.seconds();
-  time_base_seconds result_useconds = arg1*arg2.useconds();
+  time_base_seconds result_nseconds = arg1*arg2.nseconds();
 
-  time_base_seconds carry = result_useconds/MILLION;
-  result_useconds -= carry*MILLION;
+  time_base_seconds carry = result_nseconds/BILLION;
+  result_nseconds -= carry*BILLION;
   result_seconds += carry;
 
-  return DelayInterval(result_seconds, result_useconds);
+  return DelayInterval(result_seconds, result_nseconds);
 }
 
 #ifndef INT_MAX
 #define INT_MAX	0x7FFFFFFF
 #endif
-const DelayInterval DELAY_ZERO(0, 0);
-const DelayInterval DELAY_SECOND(1, 0);
-const DelayInterval ETERNITY(INT_MAX, MILLION-1);
+const DelayInterval DELAY_ZERO(0L, 0L);
+const DelayInterval DELAY_SECOND(1L, 0L);
+const DelayInterval ETERNITY(INT_MAX, BILLION-1);
 // used internally to make the implementation work
 
+DelayInterval const DELAY_MINUTE = 60*DELAY_SECOND;
+DelayInterval const DELAY_HOUR = 60*DELAY_MINUTE;
+DelayInterval const DELAY_DAY = 24*DELAY_HOUR;
 
 ///// DelayQueueEntry /////
 
@@ -197,7 +227,7 @@ DelayQueueEntry* DelayQueue::findEntryByToken(intptr_t tokenToFind) {
 
 void DelayQueue::synchronize() {
   // First, figure out how much time has elapsed since the last sync:
-  EventTime timeNow = TimeNow();
+  EventTimeMonotonic timeNow = TimeNow();
   if (timeNow < fLastSyncTime) {
     // The system clock has apparently gone back in time; reset our sync time and return:
     fLastSyncTime  = timeNow;
@@ -217,14 +247,14 @@ void DelayQueue::synchronize() {
 }
 
 
-///// EventTime /////
+///// EventTimeMonotonic /////
 
-EventTime TimeNow() {
-  struct timeval tvNow;
+EventTimeMonotonic TimeNow() {
+  struct timespec tsNow;
 
-  gettimeofday(&tvNow, NULL);
+  clock_gettime(&tsNow);
 
-  return EventTime(tvNow.tv_sec, tvNow.tv_usec);
+  return EventTimeMonotonic(tsNow.tv_sec, tsNow.tv_nsec);
 }
 
-const EventTime THE_END_OF_TIME(INT_MAX);
+const EventTimeMonotonic THE_END_OF_TIME(INT_MAX);

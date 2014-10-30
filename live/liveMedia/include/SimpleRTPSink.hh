@@ -36,7 +36,8 @@ public:
 	    char const* rtpPayloadFormatName,
 	    unsigned numChannels = 1,
 	    Boolean allowMultipleFramesPerPacket = True,
-	    Boolean doNormalMBitRule = True);
+			Boolean doNormalMBitRule = True,
+			Boolean plainUdpTs = False );
   // "doNormalMBitRule" means: If the medium is video, set the RTP "M"
   // bit on each outgoing packet iff it contains the last (or only)
   // fragment of a frame.  (Otherwise, leave the "M" bit unset.)
@@ -48,7 +49,8 @@ protected:
 		char const* rtpPayloadFormatName,
 		unsigned numChannels,
 		Boolean allowMultipleFramesPerPacket,
-		Boolean doNormalMBitRule);
+		Boolean doNormalMBitRule,
+		Boolean plainUdpTs );
 	// called only by createNew()
 
   virtual ~SimpleRTPSink();
@@ -68,6 +70,7 @@ private:
   char const* fSDPMediaTypeString;
   Boolean fAllowMultipleFramesPerPacket;
   Boolean fSetMBitOnLastFrames;
+  Boolean fPlainUdpTs;
 };
 
 #endif

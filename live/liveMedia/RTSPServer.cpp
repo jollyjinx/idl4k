@@ -297,8 +297,6 @@ RTSPServer::RTSPClientSession
 }
 
 RTSPServer::RTSPClientSession::~RTSPClientSession() {
-  closeSockets();
-
   if (fSessionCookie != NULL) {
     // We were being used for RTSP-over-HTTP tunneling.  Remove ourselves from the 'session cookie' hash table before we go:
     fOurServer.fClientSessionsForHTTPTunneling->Remove(fSessionCookie);
@@ -634,8 +632,6 @@ void RTSPServer::RTSPClientSession
      
     if (fOurServerMediaSession == NULL) {
       fOurServerMediaSession = session;
-      fOurServerMediaSession->setOwnerSessionId(fOurSessionId);
-      fOurServerMediaSession->incrementReferenceCount();
     }
     
     // Then, assemble a SDP description for this session:
