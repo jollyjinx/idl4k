@@ -48,6 +48,7 @@
 #define VIDEO_DIR_ID		"2$15"
 #define VIDEO_RATING_ID		"2$200"
 #define VIDEO_LIVE_ID		"2$210"
+#define VIDEO_MOVIE_ID		"2$220"
 
 #define IMAGE_ID		"3"
 #define IMAGE_ALL_ID		"3$B"

@@ -175,6 +175,8 @@
 #define DLNA_FLAG_TM_B           0x00400000
 #define DLNA_FLAG_TM_I           0x00800000
 #define DLNA_FLAG_TM_S           0x01000000
+#define DLNA_FLAG_SN_INCREASE    0x04000000
+#define DLNA_FLAG_S0_INCREASE    0x08000000
 #define DLNA_FLAG_LOP_BYTES      0x20000000
 #define DLNA_FLAG_LOP_NPT        0x40000000
 
@@ -188,9 +190,10 @@ extern uint32_t runtime_flags;
 #define TIVO_MASK             0x0002
 #define DLNA_STRICT_MASK      0x0004
 #define NO_PLAYLIST_MASK      0x0008
+#define SYSTEMD_MASK          0x0010
 
 #define SETFLAG(mask)	runtime_flags |= mask
-#define GETFLAG(mask)	runtime_flags & mask
+#define GETFLAG(mask)	(runtime_flags & mask)
 #define CLEARFLAG(mask)	runtime_flags &= ~mask
 
 extern const char * pidfilename;

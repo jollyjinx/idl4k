@@ -465,7 +465,7 @@ sqlite_int64 insert_sat2ip_service(const char *path, char *name)
     char time_string[LOCAL_BUFF_SIZE], title[LOCAL_BUFF_SIZE];
     FILE* file = NULL;
 
-    const char dlna_pn[] = "MPEG_TS_SD_EU_ISO;DLNA.ORG_OP=01;DLNA.ORG_CI=0";
+    const char dlna_pn[] = "MPEG_TS_SD_EU_ISO;"; //DLNA.ORG_OP=01;DLNA.ORG_CI=0";
     const char mime[] = "video/mpeg";
     const char resolution[] = "720x576";
     // int audioChannels = 2;

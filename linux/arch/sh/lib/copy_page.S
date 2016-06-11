@@ -66,6 +66,7 @@ ENTRY(copy_page)
 	rts
 	 nop
 
+#if 0 /* Replaced by a memcpy in copy_user.c */
 /*
  * __kernel_size_t __copy_user(void *to, const void *from, __kernel_size_t n);
  * Return the number of bytes NOT copied
@@ -387,3 +388,4 @@ EX(	mov.b	r0,@r4		)
 	mov.l	@r15+,r10
 	rts
 	 mov.l	@r15+,r11
+#endif

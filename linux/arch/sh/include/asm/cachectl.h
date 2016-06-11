@@ -12,6 +12,7 @@
 #define CACHEFLUSH_I		0x4
 
 #define CACHEFLUSH_D_L2		0x8
+#define CACHEFLUSH_D_L2_ONLY 0x10
 
 /*
  * Options for cacheflush system call

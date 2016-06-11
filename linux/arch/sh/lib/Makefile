@@ -21,12 +21,12 @@ udivsi3-y			+= udivsi3.o
 obj-y				+= io.o
 
 memcpy-y			:= memcpy.o
-memcpy-$(CONFIG_CPU_SH4)	:= memcpy-sh4.o
+memcpy-$(CONFIG_CPU_SH4)	:= memcpy-sh4-forward.o memcpy-sh4-backward.o
 
 memset-y			:= memset.o
 memset-$(CONFIG_CPU_SH4)	:= memset-sh4.o
 
-lib-$(CONFIG_MMU)		+= copy_page.o __clear_user.o
+lib-$(CONFIG_MMU)		+= copy_page.o __clear_user.o copy_user.o
 lib-$(CONFIG_MCOUNT)		+= mcount.o
 lib-y				+= $(memcpy-y) $(memset-y) $(udivsi3-y)
 

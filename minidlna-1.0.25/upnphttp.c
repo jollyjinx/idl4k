@@ -109,6 +109,7 @@ New_upnphttp(int s)
 void
 CloseSocket_upnphttp(struct upnphttp * h)
 {
+    DPRINTF(E_DEBUG, L_HTTP, "CloseSocket_upnphttp: sck:%d\n", h->socket );
 	if(close(h->socket) < 0)
 	{
 		DPRINTF(E_ERROR, L_HTTP, "CloseSocket_upnphttp: close(%d): %s\n", h->socket, strerror(errno));
@@ -173,6 +174,7 @@ ParseHttpHeaders(struct upnphttp * h)
 	char * p;
 	int n;
 	line = h->req_buf;
+
 	/* TODO : check if req_buf, contentoff are ok */
 	while(line < (h->req_buf + h->req_contentoff))
 	{
@@ -494,6 +496,37 @@ ParseHttpHeaders(struct upnphttp * h)
 					h->reqflags |= FLAG_MS_PFS;
 				}
 			}
+            else if(strncasecmp(line, "Connection", 10)==0)
+            {
+                p = colon + 1;
+				while(isspace(*p))
+					p++;
+
+                if(strncasecmp(p, "Keep-Alive", 10)==0)
+				{
+					h->reqflags |= FLAG_CONN_KEEP_ALIVE;
+				}
+            }
+            else if(strncasecmp(line, "Accept-Encoding", 15)==0)
+            {
+                p = colon + 1;
+				while(isspace(*p))
+					p++;
+				if(strstrc(p, "gzip", '\r'))
+				{
+					h->reqflags |= FLAG_INVALID_ENCODING;
+				}
+            }
+            else if(strncasecmp(line, "Pragma", 6)==0)
+            {
+                p = colon + 1;
+				while(isspace(*p))
+					p++;
+				if(strstrc(p, "getIfoFileURI.dlna.org", '\r'))
+				{
+					//h->reqflags |= FLAG_INVALID_ENCODING;
+				}
+            }
 		}
 next_header:
 		while(!(line[0] == '\r' && line[1] == '\n'))
@@ -607,7 +640,10 @@ Send406(struct upnphttp * h)
 	BuildResp2_upnphttp(h, 406, "Not Acceptable",
 	                    body406, sizeof(body406) - 1);
 	SendResp_upnphttp(h);
-	CloseSocket_upnphttp(h);
+    if( (h->reqflags & FLAG_CONN_KEEP_ALIVE) == 0 )
+    {
+        CloseSocket_upnphttp(h);
+    }
 }
 
 /* very minimalistic 416 error message */
@@ -968,6 +1004,12 @@ ProcessHttpQuery_upnphttp(struct upnphttp * h)
 			Send406(h);
 			return;
 		}
+        /*else if(h->reqflags & FLAG_INVALID_ENCODING)      WMP  do not accept 406 res  
+        {
+            DPRINTF(E_WARN, L_HTTP, "DLNA requested wrong encoding, responding ERROR 406\n");
+			Send406(h);
+			return;
+        }*/
 		else if(strcmp("GET", HttpCommand) == 0)
 		{
 			h->req_command = EGet;
@@ -1181,9 +1223,13 @@ BuildHeader_upnphttp(struct upnphttp * h, int respcode,
 	static const char httpresphead[] =
 		"%s %d %s\r\n"
 		"Content-Type: %s\r\n"
-		"Connection: close\r\n"
+		"Connection: %s\r\n"
 		"Content-Length: %d\r\n"
 		"Server: " MINIDLNA_SERVER_STRING "\r\n";
+    static const char conn_close[] = "close";
+    static const char conn_keep[] = "keep-alive";
+
+    const char* curr_conn = conn_close;
 	time_t curtime = time(NULL);
 	char date[30];
 	int templen;
@@ -1193,10 +1239,14 @@ BuildHeader_upnphttp(struct upnphttp * h, int respcode,
 		h->res_buf = (char *)malloc(templen);
 		h->res_buf_alloclen = templen;
 	}
+    if( h->reqflags & FLAG_CONN_KEEP_ALIVE )
+    {
+        curr_conn = conn_keep;
+    }
 	h->res_buflen = snprintf(h->res_buf, h->res_buf_alloclen,
 	                         httpresphead, "HTTP/1.1",
 	                         respcode, respmsg,
-	                         (h->respflags&FLAG_HTML)?"text/html":"text/xml; charset=\"utf-8\"",
+	                         (h->respflags&FLAG_HTML)?"text/html":"text/xml; charset=\"utf-8\"", curr_conn,
 							 bodylen);
 	/* Additional headers */
 	if(h->respflags & FLAG_TIMEOUT) {
@@ -1325,7 +1375,10 @@ send_file(struct upnphttp * h, int sendfd, off_t offset, off_t end_offset)
 				DPRINTF(E_DEBUG, L_HTTP, "sendfile error :: error no. %d [%s]\n", errno, strerror(errno));
 				/* If sendfile isn't supported on the filesystem, don't bother trying to use it again. */
 				if( errno == EOVERFLOW || errno == EINVAL )
-					try_sendfile = 0;
+                {
+                    try_sendfile = 0;
+                    continue;
+                }
 				else if( errno != EAGAIN )
 					break;
 			}
@@ -1353,6 +1406,10 @@ send_file(struct upnphttp * h, int sendfd, off_t offset, off_t end_offset)
 				break;
 		}
 		offset+=ret;
+        if( h->reqflags & FLAG_INVALID_ENCODING )
+        {
+            break;
+        }
 	}
 	free(buf);
 }
@@ -1867,7 +1924,12 @@ SendResp_dlnafile(struct upnphttp * h, char * object)
 	off_t total, offset, size;
 	sqlite_int64 id;
 	int sendfh;
-	uint32_t dlna_flags = DLNA_FLAG_DLNA_V1_5|DLNA_FLAG_HTTP_STALLING|DLNA_FLAG_TM_B;
+	uint32_t dlna_flags = DLNA_FLAG_DLNA_V1_5|DLNA_FLAG_HTTP_STALLING;
+    char dlna_tlag = '*'; /* for realTimeInfo.dlna.org value */
+    int dlna_op = 1;
+    int is_broadcast = 0;
+    const char* ranges = "bytes";
+    const char* no_ranges = "none";
 	static struct { sqlite_int64 id;
 	                enum client_types client;
 	                char path[PATH_MAX];
@@ -1990,6 +2052,16 @@ SendResp_dlnafile(struct upnphttp * h, char * object)
 	size = lseek(sendfh, 0, SEEK_END);
 	lseek(sendfh, 0, SEEK_SET);
 
+#ifdef PLATFORM_AXE
+	//if( strstr( last_file.path, ".url") )
+	{
+		dlna_tlag = '1';
+		dlna_op = 0;
+		is_broadcast = 1;
+        ranges = no_ranges;
+	}
+#endif
+
 	str.data = header;
 	str.size = sizeof(header);
 	str.off = 0;
@@ -2029,7 +2101,10 @@ SendResp_dlnafile(struct upnphttp * h, char * object)
 	{
 		h->req_RangeEnd = size - 1;
 		total = size;
-		strcatf(&str, "Content-Length: %jd\r\n", (intmax_t)total);
+		if( ! is_broadcast )
+		{
+			strcatf(&str, "Content-Length: %jd\r\n", (intmax_t)total);
+		}
 	}
 
 #if USE_FORK
@@ -2051,6 +2126,14 @@ SendResp_dlnafile(struct upnphttp * h, char * object)
 		case 'v':
 		default:
 			dlna_flags |= DLNA_FLAG_TM_S;
+			if(! is_broadcast )
+			{
+				dlna_flags |= DLNA_FLAG_TM_B;
+			}
+			else
+			{
+				dlna_flags |= DLNA_FLAG_SN_INCREASE | DLNA_FLAG_S0_INCREASE | DLNA_FLAG_LOP_BYTES;
+			}
 			break;
 	}
 
@@ -2062,14 +2145,20 @@ SendResp_dlnafile(struct upnphttp * h, char * object)
 	}
 
 	strftime(date, 30,"%a, %d %b %Y %H:%M:%S GMT" , gmtime(&curtime));
-	strcatf(&str, "Accept-Ranges: bytes\r\n"
-	              "Connection: close\r\n"
-	              "Date: %s\r\n"
-	              "EXT:\r\n"
-	              "realTimeInfo.dlna.org: DLNA.ORG_TLAG=*\r\n"
-	              "contentFeatures.dlna.org: %sDLNA.ORG_OP=%02X;DLNA.ORG_CI=%X;DLNA.ORG_FLAGS=%08X%024X\r\n"
-	              "Server: " MINIDLNA_SERVER_STRING "\r\n\r\n",
-	              date, last_file.dlna, 1, 0, dlna_flags, 0);
+	strcatf(&str, "Accept-Ranges: %s\r\n"
+				  "Connection: close\r\n"
+				  "Date: %s\r\n"
+				  "EXT:\r\n"
+				  "realTimeInfo.dlna.org: DLNA.ORG_TLAG=%c\r\n"
+				  "contentFeatures.dlna.org: %s", ranges, date, dlna_tlag, last_file.dlna );
+
+	if(dlna_op)
+	{
+		strcatf(&str, "DLNA.ORG_OP=01;");
+	}
+
+	strcatf(&str, "DLNA.ORG_CI=0;DLNA.ORG_FLAGS=%08X000000000000000000000000\r\n"
+				  "Server: " MINIDLNA_SERVER_STRING "\r\n\r\n", dlna_flags);
 
 	//DEBUG DPRINTF(E_DEBUG, L_HTTP, "RESPONSE: %s\n", str.data);
 	if( send_data(h, str.data, str.off, MSG_MORE) == 0 )

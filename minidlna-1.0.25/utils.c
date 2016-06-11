@@ -37,6 +37,9 @@ strcatf(struct string_s *str, const char *fmt, ...)
 	int ret;
 	va_list ap;
 
+	if (str->off >= str->size)
+		return 0;
+
 	va_start(ap, fmt);
 	ret = vsnprintf(str->data + str->off, str->size - str->off, fmt, ap);
 	str->off += ret;

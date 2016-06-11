@@ -11,3 +11,8 @@ System.map
 /errlog
 /reloc_off
 
+board/st/idl4k/config.tmp
+include/asm-sh/arch
+include/autoconf.mk
+include/autoconf.mk.dep
+

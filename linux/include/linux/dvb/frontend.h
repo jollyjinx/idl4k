@@ -304,7 +304,28 @@ struct dvb_frontend_event {
 
 #define DTV_ISDBS_TS_ID		42
 
-#define DTV_MAX_COMMAND				DTV_ISDBS_TS_ID
+#define DTV_DVBT2_PLP_ID	43
+
+#define DTV_ENUM_DELSYS		44
+
+/* ATSC-MH */
+#define DTV_ATSCMH_FIC_VER		45
+#define DTV_ATSCMH_PARADE_ID		46
+#define DTV_ATSCMH_NOG			47
+#define DTV_ATSCMH_TNOG			48
+#define DTV_ATSCMH_SGN			49
+#define DTV_ATSCMH_PRC			50
+#define DTV_ATSCMH_RS_FRAME_MODE	51
+#define DTV_ATSCMH_RS_FRAME_ENSEMBLE	52
+#define DTV_ATSCMH_RS_CODE_MODE_PRI	53
+#define DTV_ATSCMH_RS_CODE_MODE_SEC	54
+#define DTV_ATSCMH_SCCC_BLOCK_MODE	55
+#define DTV_ATSCMH_SCCC_CODE_MODE_A	56
+#define DTV_ATSCMH_SCCC_CODE_MODE_B	57
+#define DTV_ATSCMH_SCCC_CODE_MODE_C	58
+#define DTV_ATSCMH_SCCC_CODE_MODE_D	59
+
+#define DTV_MAX_COMMAND				DTV_ATSCMH_SCCC_CODE_MODE_D
 
 typedef enum fe_pilot {
 	PILOT_ON,
@@ -321,7 +342,7 @@ typedef enum fe_rolloff {
 
 typedef enum fe_delivery_system {
 	SYS_UNDEFINED,
-	SYS_DVBC_ANNEX_AC,
+	SYS_DVBC_ANNEX_A,
 	SYS_DVBC_ANNEX_B,
 	SYS_DVBT,
 	SYS_DSS,
@@ -336,7 +357,14 @@ typedef enum fe_delivery_system {
 	SYS_DMBTH,
 	SYS_CMMB,
 	SYS_DAB,
+	SYS_DVBT2,
+	SYS_TURBO,
+	SYS_DVBC_ANNEX_C,
 } fe_delivery_system_t;
+
+
+#define SYS_DVBC_ANNEX_AC	SYS_DVBC_ANNEX_A
+
 
 struct dtv_cmds_h {
 	char	*name;		/* A display name for debugging purposes */

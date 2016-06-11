@@ -67,7 +67,8 @@ fi
 echo "ARCH        = $2" >  config.mk
 echo "CPU         = $3" >> config.mk
 echo "BOARD       = $4" >> config.mk
-echo "SVN_VERSION = `svn info | grep Revision: | awk '{ print $2 }'`" >> config.mk
+#echo "SVN_VERSION = `svn info | grep Revision: | awk '{ print $2 }'`" >> config.mk
+echo "SVN_VERSION = 0" >> config.mk
 
 [ "$5" ] && [ "$5" != "NULL" ] && echo "VENDOR      = $5" >> config.mk
 

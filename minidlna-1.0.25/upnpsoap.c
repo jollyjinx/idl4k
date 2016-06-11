@@ -746,6 +746,7 @@ callback(void *args, int argc, char **argv, char **azColName)
          *genre = argv[12], *comment = argv[13], *nrAudioChannels = argv[14], *track = argv[15], *date = argv[16], *resolution = argv[17],
          *tn = argv[18], *creator = argv[19], *dlna_pn = argv[20], *mime = argv[21], *album_art = argv[22];
     char dlna_buf[128];
+    int dlna_op=1;
     char ext[5];
     struct string_s *str = passed_args->str;
     int ret = 0;
@@ -785,12 +786,20 @@ callback(void *args, int argc, char **argv, char **azColName)
 
     if( strncmp(class, "item", 4) == 0 )
     {
-        uint32_t dlna_flags = DLNA_FLAG_DLNA_V1_5|DLNA_FLAG_HTTP_STALLING|DLNA_FLAG_TM_B;
+        uint32_t dlna_flags = DLNA_FLAG_DLNA_V1_5 | DLNA_FLAG_HTTP_STALLING | DLNA_FLAG_TM_B;
         char *alt_title = NULL;
         /* We may need special handling for certain MIME types */
         if( *mime == 'v' )
         {
+            if( strncmp(class, "item.videoItem.videoBroadcast", 29) == 0 )
+            {
+                dlna_op = 0;
+                dlna_flags = DLNA_FLAG_DLNA_V1_5 | DLNA_FLAG_HTTP_STALLING;
+                //dlna_flags |= DLNA_FLAG_SN_INCREASE | DLNA_FLAG_S0_INCREASE | DLNA_FLAG_LOP_BYTES;
+            }
+
             dlna_flags |= DLNA_FLAG_TM_S;
+
             if( passed_args->flags & FLAG_MIME_AVI_DIVX )
             {
                 if( strcmp(mime, "video/x-msvideo") == 0 )
@@ -866,11 +875,16 @@ callback(void *args, int argc, char **argv, char **azColName)
             dlna_flags |= DLNA_FLAG_TM_I;
 
         if( dlna_pn )
-            snprintf(dlna_buf, sizeof(dlna_buf), "DLNA.ORG_PN=%s;"
-                                                 "DLNA.ORG_OP=01;"
-                                                 "DLNA.ORG_CI=0;"
+        {
+            snprintf(dlna_buf, sizeof(dlna_buf), "DLNA.ORG_PN=%s;", dlna_pn );
+            if( dlna_op > 0 )
+            {
+                snprintf(dlna_buf, sizeof(dlna_buf), "DLNA.ORG_OP=%02x;", dlna_op );
+            }
+            snprintf(dlna_buf, sizeof(dlna_buf), "DLNA.ORG_CI=0;"
                                                  "DLNA.ORG_FLAGS=%08X%024X",
-                                                 dlna_pn, dlna_flags, 0);
+                                                 dlna_flags, 0);
+        }
         else if( passed_args->flags & FLAG_DLNA )
             snprintf(dlna_buf, sizeof(dlna_buf), "DLNA.ORG_OP=01;"
                                                  "DLNA.ORG_CI=0;"
@@ -1219,7 +1233,7 @@ BrowseContentDirectory(struct upnphttp * h, const char * action)
     if( args.flags & FLAG_MS_PFS )
     {
         if( !strchr(ObjectID, '$') && (strcmp(ObjectID, "0") != 0) )
-        {
+	{
             ptr = sql_get_text_field(db, "SELECT OBJECT_ID from OBJECTS"
                                          " where OBJECT_ID in "
                                          "('"MUSIC_ID"$%s', '"VIDEO_ID"$%s', '"IMAGE_ID"$%s')",
@@ -1229,7 +1243,7 @@ BrowseContentDirectory(struct upnphttp * h, const char * action)
                 ObjectID = ptr;
                 args.flags |= FLAG_FREE_OBJECT_ID;
             }
-        }
+	}
     }
     DPRINTF(E_DEBUG, L_HTTP, "Browsing ContentDirectory:\n"
                              " * ObjectID: %s\n"
@@ -1245,14 +1259,14 @@ BrowseContentDirectory(struct upnphttp * h, const char * action)
     {
         args.flags |= FLAG_ROOT_CONTAINER;
         if( runtime_vars.root_container )
-        {
+	{
             if( (args.flags & FLAG_AUDIO_ONLY) && (strcmp(runtime_vars.root_container, BROWSEDIR_ID) == 0) )
                 ObjectID = MUSIC_DIR_ID;
             else
                 ObjectID = runtime_vars.root_container;
-        }
-        else
-        {
+	}
+	else
+	{
             if( args.flags & FLAG_AUDIO_ONLY )
                 ObjectID = MUSIC_ID;
         }
@@ -1330,10 +1344,10 @@ BrowseContentDirectory(struct upnphttp * h, const char * action)
     {
         ret = sql_get_int_field(db, "SELECT count(*) from OBJECTS where OBJECT_ID = '%s'", ObjectID);
         if( ret <= 0 )
-        {
+	{
             SoapError(h, 701, "No such object error");
             goto browse_error;
-        }
+	}
     }
     ret = strcatf(&str, "&lt;/DIDL-Lite&gt;</Result>\n"
                         "<NumberReturned>%u</NumberReturned>\n"
@@ -1391,10 +1405,10 @@ SearchContentDirectory(struct upnphttp * h, const char * action)
     if( !ContainerID )
     {
         if( !(ContainerID = GetValueFromNameValueList(&data, "ObjectID")) )
-        {
+	{
             SoapError(h, 402, "Invalid Args");
             goto search_error;
-        }
+	}
     }
 
     str.data = malloc(DEFAULT_RESP_SIZE);
@@ -1417,7 +1431,7 @@ SearchContentDirectory(struct upnphttp * h, const char * action)
     if( args.flags & FLAG_MS_PFS )
     {
         if( !strchr(ContainerID, '$') && (strcmp(ContainerID, "0") != 0) )
-        {
+	{
             ptr = sql_get_text_field(db, "SELECT OBJECT_ID from OBJECTS"
                                          " where OBJECT_ID in "
                                          "('"MUSIC_ID"$%s', '"VIDEO_ID"$%s', '"IMAGE_ID"$%s')",
@@ -1427,7 +1441,7 @@ SearchContentDirectory(struct upnphttp * h, const char * action)
                 ContainerID = ptr;
                 args.flags |= FLAG_FREE_OBJECT_ID;
             }
-        }
+	}
     }
     DPRINTF(E_DEBUG, L_HTTP, "Searching ContentDirectory:\n"
                              " * ObjectID: %s\n"
@@ -1484,7 +1498,7 @@ SearchContentDirectory(struct upnphttp * h, const char * action)
             if( !newSearchCriteria )
                 newSearchCriteria = strdup(SearchCriteria);
             SearchCriteria = newSearchCriteria = modifyString(newSearchCriteria, "\\\"", "&amp;quot;", 0);
-        }
+	}
     }
     DPRINTF(E_DEBUG, L_HTTP, "Translated SearchCriteria: %s\n", SearchCriteria);
 
@@ -1510,7 +1524,7 @@ SearchContentDirectory(struct upnphttp * h, const char * action)
         {
             SoapError(h, 710, "No such container");
             goto search_error;
-        }
+	}
     }
 #ifdef __sparc__ /* Sorting takes too long on slow processors with very large containers */
     ret = 0;

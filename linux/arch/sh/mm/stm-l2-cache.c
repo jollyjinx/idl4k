@@ -330,13 +330,14 @@ device_initcall(stm_l2_perf_counters_init);
 
 /* Wait for the cache to finalize all pending operations */
 
-static void stm_l2_sync(void)
+void stm_l2_sync(void)
 {
 	writel(1, stm_l2_base + L2SYNC);
 	while (readl(stm_l2_base + L2SYNC) & 1)
 		cpu_relax();
 }
 
+EXPORT_SYMBOL(stm_l2_sync);
 
 
 /* Flushing interface */
@@ -344,6 +345,8 @@ static void stm_l2_sync(void)
 static void stm_l2_flush_common(unsigned long start, int size, int is_phys,
 		unsigned int l2reg)
 {
+	void* stm_l2_reg = (void*)((unsigned)stm_l2_base + l2reg);
+
 	/* Any code trying to flush P4 address is definitely wrong... */
 	BUG_ON(!is_phys && start >= P4SEG);
 
@@ -375,7 +378,7 @@ static void stm_l2_flush_common(unsigned long start, int size, int is_phys,
 
 		/* Do the honours! */
 		while (phys_addr < phys_end) {
-			writel(phys_addr, stm_l2_base + l2reg);
+			writel(phys_addr, stm_l2_reg);
 			phys_addr += stm_l2_block_size;
 		}
 	} else if ((start >= P3SEG && start < P4SEG) || (start < P1SEG)) {
@@ -407,13 +410,13 @@ static void stm_l2_flush_common(unsigned long start, int size, int is_phys,
 
 			/* Get the physical address */
 			phys_addr = pte_val(*pte) & PTE_PHYS_MASK; /* Page */
-			phys_addr += virt_addr & PAGE_MASK; /* Offset */
+			phys_addr += virt_addr & (PAGE_SIZE-1); /* Offset */
 
 			/* Beginning of the next page */
 			phys_end = PAGE_ALIGN(phys_addr + 1);
 
 			while (phys_addr < phys_end && virt_addr < virt_end) {
-				writel(phys_addr, stm_l2_base + l2reg);
+				writel(phys_addr, stm_l2_reg);
 				phys_addr += stm_l2_block_size;
 				virt_addr += stm_l2_block_size;
 			}
@@ -453,9 +456,9 @@ void stm_l2_flush_purge(unsigned long start, int size, int is_phys)
 
 	switch (stm_l2_current_mode) {
 	case MODE_COPY_BACK:
-		stm_l2_flush_common(start, size, is_phys, L2PA);
 		/* Fall through */
 	case MODE_WRITE_THROUGH:
+		stm_l2_flush_common(start, size, is_phys, L2PA);
 		/* Since this is for the purposes of DMA, we have to
 		 * guarantee that the data has all got out to memory
 		 * before returning. */
@@ -615,6 +618,12 @@ static void stm_l2_set_mode(enum stm_l2_mode new_mode)
 	spin_unlock(&stm_l2_current_mode_lock);
 }
 
+
+void stm_l2_disable(void)
+{
+	stm_l2_set_mode(MODE_BYPASS);
+}
+EXPORT_SYMBOL(stm_l2_disable);
 
 
 /* sysfs interface */

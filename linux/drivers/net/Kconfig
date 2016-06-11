@@ -2495,6 +2495,7 @@ config S6GMAC
 	  will be called s6gmac.
 
 source "drivers/net/stmmac/Kconfig"
+source "drivers/net/ivoeth/Kconfig"
 
 endif # NETDEV_1000
 

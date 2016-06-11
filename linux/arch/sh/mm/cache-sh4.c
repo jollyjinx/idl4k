@@ -184,11 +184,13 @@ static void __uses_jump_to_uncached flush_icache_all(void)
 	local_irq_restore(flags);
 }
 
-static inline void flush_dcache_all(void)
+inline void flush_dcache_all(void)
 {
 	(*__flush_dcache_segment_fn)(0UL, boot_cpu_data.dcache.way_size);
 	wmb();
 }
+
+EXPORT_SYMBOL(flush_dcache_all);
 
 static void sh4_flush_cache_all(void *unused)
 {

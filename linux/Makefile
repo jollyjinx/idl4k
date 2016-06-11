@@ -347,7 +347,7 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
 		   -fno-delete-null-pointer-checks
-#		   -Wno-error=unused-but-set-variable
+		   -Wno-error=unused-but-set-variable
 KBUILD_AFLAGS   := -D__ASSEMBLY__
 
 # Read KERNELRELEASE from include/config/kernel.release (if it exists)
@@ -525,7 +525,10 @@ all: vmlinux
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os
 else
-KBUILD_CFLAGS	+= -O2
+ifeq (,$(findstring $(OPTLEVEL), "0 1 2 3 s"))
+OPTLEVEL = 2
+endif
+KBUILD_CFLAGS	+= -O$(OPTLEVEL)
 endif
 
 include $(srctree)/arch/$(SRCARCH)/Makefile

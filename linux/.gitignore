@@ -9,6 +9,9 @@
 #
 # Normal rules
 #
+
+axe_version.mk
+
 .*
 *.o
 *.o.*
